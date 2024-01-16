@@ -33,6 +33,8 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+
   }
 
   /**
@@ -44,17 +46,39 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
-  public int getIndex(char c) {
+  public int getIndex(char c) throws IllegalAccessException {
   //TODO
-    return 0;
+    if((c>='A'&&c<='Z')){
+        return c-'A';
+    }else if ((c>='a'&& c<='z')){
+        return c-'a';
+    }else{
+        throw new IllegalAccessException("Not apart of the alphabet- try again!");
+    }
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
+  public void add(char c) throws IllegalAccessException {
 //TODO
+    if((c>='A'&&c<='Z')){
+      for (short i : inventory) {
+        if(i == (short) getIndex(c)){
+
+        }
+      }
+    }else if ((c>='a'&& c<='z')){
+      for (short i : inventory) {
+        if(i == (short) getIndex(c)){
+          int count = 0;
+          count++;
+        }
+      }
+    }else{
+      throw new IllegalAccessException("Not apart of the alphabet- try again!");
+    }
   }
 
   /**

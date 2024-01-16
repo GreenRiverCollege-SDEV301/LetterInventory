@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LetterInventoryTest {
-/*
+
     static LetterInventory washington;
     static LetterInventory empty;
     static LetterInventory atoz;
@@ -19,7 +19,7 @@ class LetterInventoryTest {
     }
 
     @Test
-    void getIndex() {
+    void getIndex() throws IllegalAccessException {
         for (int i = 0; i < LetterInventory.ALPHABET_SIZE; i++) {
             assertEquals(i,washington.getIndex((char)('a' + i)));
         }
@@ -125,5 +125,5 @@ class LetterInventoryTest {
         assertFalse(atoz.isEmpty());
         assertFalse(washington.isEmpty());
     }
-*/
+
 }
