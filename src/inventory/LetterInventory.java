@@ -1,5 +1,8 @@
 package inventory;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
@@ -45,8 +48,12 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    char letter = Character.toLowerCase(c);
+    if((int)letter >= 97 && (int)letter <= 122){
+      return (int)letter -97;
+    }else {
+      throw new IllegalArgumentException(c + " is not a letter.");
+    }
   }
 
   /**
@@ -54,7 +61,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    inventory[getIndex(c)]++;
   }
 
   /**
