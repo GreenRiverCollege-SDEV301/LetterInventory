@@ -32,7 +32,11 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+
+    inventory = new short[ALPHABET_SIZE];
+    for(int i = 0; i < text.length(); i++){
+      add(text.charAt(i));
+    }
   }
 
   /**
@@ -45,8 +49,15 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if((c>='A' && c<='Z')||(c>='a' && c<='z')) {
+      if(c>='A' && c<='Z'){
+        return c-'A';
+      }else{
+        return c-'a';
+      }
+    }else{
+      throw new IllegalArgumentException("Please choose a capital or lower case letter");
+    }
   }
 
   /**
@@ -54,7 +65,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    if((c>='A' && c<='Z')||(c>='a' && c<='z')) {
+      inventory[getIndex(c)] ++;
+    }else{
+      throw new IllegalArgumentException("Please choose a capital or lower case letter");
+    }
   }
 
   /**
@@ -62,7 +77,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    if((c>='A' && c<='Z')||(c>='a' && c<='z')) {
+      inventory[getIndex(c)] --;
+    }else{
+      throw new IllegalArgumentException("Please choose a capital or lower case letter");
+    }
   }
 
   /**
@@ -70,8 +89,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -81,7 +99,15 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if((c>='A' && c<='Z')||(c>='a' && c<='z')) {
+      if(count>0){
+        inventory[getIndex(c)] = count;
+      }else{
+        throw new IllegalArgumentException("Please choose a non negative number");
+      }
+    }else{
+      throw new IllegalArgumentException("Please choose a capital or lower case letter");
+    }
   }
 
   /**
@@ -90,8 +116,11 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    if((c>='A' && c<='Z')||(c>='a' && c<='z')) {
+        return get(c) != 0;
+    }else{
+      throw new IllegalArgumentException("Please choose a capital or lower case letter");
+    }
   }
 
   /**
@@ -99,8 +128,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int total = 0;
+    for(int i =0; i < ALPHABET_SIZE; i++){
+      total += inventory[i];
+   }
+    return total;
   }
 
   /**
@@ -108,8 +140,7 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+      return size() == 0;
   }
 
   /**
