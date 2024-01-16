@@ -46,7 +46,25 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+    boolean isUpperCase = false;
+    boolean isLowerCase = false;
+
+    if (c >= 'A' && c <= 'Z') {
+      isUpperCase = true;
+    }
+    else if (c >= 'a' && c <= 'z') {
+      isLowerCase = true;
+    }
+    else {
+      throw new IllegalArgumentException("Received a non alpha character.");
+    }
+
+    if (isUpperCase) {
+      return c - 'A';
+    }
+    else {
+      return c - 'a';
+    }
   }
 
   /**
@@ -71,6 +89,8 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
+
+
     return 0;
   }
 
