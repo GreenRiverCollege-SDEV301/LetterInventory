@@ -13,7 +13,7 @@ package inventory;
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
  */
-public class LetterInventory  {
+public class LetterInventory extends Throwable  {
 
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
@@ -22,7 +22,8 @@ public class LetterInventory  {
    * Constructs an integer array for the size of the alphabet.
    * All letter counts are initialized to zero.
    */
-  public LetterInventory(){
+  public LetterInventory()
+  {
     inventory = new short[ALPHABET_SIZE];
   }
   /**
@@ -31,11 +32,17 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
-  public LetterInventory(String text) {
-   //TODO
+  public LetterInventory(String text)
+  {
+    inventory = new short[ALPHABET_SIZE];
+
+    for(int i = 0; i < text.length(); i++)
+    {
+      add(text.charAt(i));
+    }
   }
 
-  /**
+    /**
    * Identifies the index for the given character within the inventory array , throws an
    * IIegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
@@ -44,34 +51,49 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
-  public int getIndex(char c) {
-  //TODO
-    return 0;
+  public int getIndex(char c) throws IllegalArgumentException
+  {
+    int unicodeValue = (int) c;
+    int UNICODEOFa = (int)'a';
+    int UNICODEOFz = (int)'z';
+    int CAPITALTOLOWEROFFSET = 32;
+
+    if(unicodeValue < UNICODEOFa)
+    {
+      unicodeValue += CAPITALTOLOWEROFFSET;
+    }
+    if(unicodeValue > UNICODEOFz || unicodeValue < UNICODEOFa)
+    {
+      throw new IllegalArgumentException("Not a valid Letter");
+    }
+    return unicodeValue - UNICODEOFa;
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
-//TODO
+  public void add(char c)
+  {
+      inventory[getIndex(c)] ++;
   }
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c) {
-  //TODO
+  public void subtract(char c)
+  {
+    inventory[getIndex(c)] --;
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
-   //TODO
-    return 0;
+  public int get(char c)
+  {
+    return inventory[getIndex(c)];
   }
 
   /**
