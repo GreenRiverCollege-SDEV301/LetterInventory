@@ -32,7 +32,20 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    short[] inv = new short[ALPHABET_SIZE];
+    for(int i = 0; i < text.length(); i++){
+        char c = text.charAt(i);
+        if(c >= 'A' && c <= 'Z'){
+            inv[c - 'A'] += 1;
+        }
+        else if(c >= 'a' && c <= 'z'){
+            inv[c - 'a'] += 1;
+        }
+        else{
+            throw new IllegalArgumentException("only A-Z and a-z allowed");
+        }
+    }
+    inventory = inv;
   }
 
   /**
@@ -45,8 +58,21 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+//    for(int i = 0; i < inventory.length; i++){
+//        if(c == inventory[i]){
+//          return i;
+//        }
+//    }
+    if(!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
+      throw new IllegalArgumentException("no such letter");
+    }
+    else if(c >= 'A' && c <= 'Z') {
+      return c - 'A';
+    }
+    else{
+      return c - 'a';
+    }
+
   }
 
   /**
@@ -109,7 +135,8 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    //return false;
+    return inventory.length < 1;
   }
 
   /**
