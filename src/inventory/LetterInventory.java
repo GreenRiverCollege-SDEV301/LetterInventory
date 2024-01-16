@@ -87,7 +87,7 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122)
+    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122 && count>=0)
     {
       inventory[getIndex(c)] = count;
     }
