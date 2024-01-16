@@ -32,7 +32,11 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    inventory = new short[ALPHABET_SIZE];
+    char[] chars = text.toCharArray();
+    for (char c : chars) {
+      this.add(c);
+    }
   }
 
   /**
@@ -45,8 +49,21 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    // convert input to lowercase
+    if (Character.isUpperCase(c)) {
+      Character.toLowerCase(c);
+    }
+    // a = 97
+    int index = (int) c - 'a';
+    // a - z = 0
+    // anything less than 0 means c is not a letter
+    if (index >= 0) {
+      //System.out.println("Index of " + c + " is: " + index);
+      return index;
+    }
+    else {
+      throw new IllegalArgumentException("Parameter 'c' must be either a-z or A-Z");
+    }
   }
 
   /**
@@ -54,7 +71,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int index = this.getIndex(c);
+    this.inventory[index] += 1;
   }
 
   /**
@@ -62,7 +80,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = this.getIndex(c);
+    this.inventory[index] -= 1;
   }
 
   /**
@@ -70,8 +89,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    int index = this.getIndex(c);
+    return this.inventory[index];
   }
 
   /**
@@ -81,7 +100,8 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    int index = this.getIndex(c);
+    this.inventory[index] = count;
   }
 
   /**
@@ -90,8 +110,8 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    int index = this.getIndex(c);
+    return this.inventory[index] > 0;
   }
 
   /**
@@ -99,8 +119,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int size = 0;
+    for (short value : this.inventory) {
+      size += value;
+    }
+    return size;
   }
 
   /**
@@ -108,8 +131,12 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    for (short value : this.inventory) {
+      if (value > 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
