@@ -33,6 +33,7 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
   }
 
   /**
@@ -46,15 +47,47 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+
+    //first method
+//    boolean isUpperCase = false;
+//    boolean isLowerCase = false;
+//
+//    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+//    {
+//      isLowerCase = true;
+//    }
+//    else
+//    {
+//      throw new IllegalArgumentException("Received a non alpha character")
+//    }
+//
+//    if(isUpperCase){
+//      return c - 'A';
+//    }
+//    else {
+//      return c - 'a';
+//    }
+//
+    int i = Character.toLowerCase(c) - 'a';  // 101 - 97
+    return i;         // Answer = 4, because 'e' is index 4
   }
 
   /**
    * Increases the count for the given character in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+   * @param character a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
+  public void add(char character) {
 //TODO
+    int count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+     if(inventory[getIndex(character)] != character)
+     {
+       count++;
+     }
+    }
+    System.out.println(count);
+
   }
 
   /**
