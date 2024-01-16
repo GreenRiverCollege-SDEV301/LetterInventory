@@ -1,3 +1,10 @@
+/**
+ * SDEV 301: Systems Programming
+ *
+ * @author Tien Han
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
