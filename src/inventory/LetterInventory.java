@@ -33,6 +33,8 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+
   }
 
   /**
@@ -46,6 +48,16 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
+    boolean isUpperCase = false;
+    boolean isLowerCase = false;
+    int num = (int)c;
+    if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+      isLowerCase = true;
+      isUpperCase = true;
+    }
+    else {
+      throw new IllegalArgumentException("Error non alpha character");
+    }
     return 0;
   }
 
@@ -55,6 +67,7 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+
   }
 
   /**
