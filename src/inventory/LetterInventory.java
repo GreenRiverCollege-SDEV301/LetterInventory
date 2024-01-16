@@ -24,6 +24,7 @@ public class LetterInventory  {
    */
   public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
+
   }
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -31,8 +32,22 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
-  public LetterInventory(String text) {
+  public LetterInventory(String text) throws ArrayIndexOutOfBoundsException
+  {
    //TODO
+    /*
+    short[] arr = new short[text.length()];
+    for (int i = 0; i < text.length(); i++)
+    {
+      arr[i] = (short) getIndex(text.charAt(i));
+      System.out.print(arr[i] + ", ");
+      //add(get(text.charAt(i)));
+    }*/
+    for (int i = 0; i < text.length(); i++)
+    {
+     add(text.charAt(i));
+    }
+
   }
 
   /**
@@ -46,15 +61,39 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+    int num = (int) c;
+    int index = 0;
+    if (num >= 'a' && num <= 'z')
+    {
+      index = num-'a';
+    }
+    else if (num >= 'A' && num <= 'Z')
+    {
+      index = num-'A';
+    }
+    else
+    {
+      throw new IllegalArgumentException("Received a non alphanumeric number");
+    }
+    return index;
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
+  public void add(char c)
+  {
 //TODO
+    try
+    {
+      inventory[getIndex(c)]++;
+    }
+    catch(NullPointerException e)
+    {
+      inventory[getIndex(c)] = (short) 0;
+    }
+
   }
 
   /**
