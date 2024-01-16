@@ -32,12 +32,16 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    int[] array = new int[ALPHABET_SIZE];
+
+    for (int i = 0; i < text.length(); i++) {
+      add(text.charAt(i));
+    }
   }
 
   /**
    * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
+   * IllegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
    *              if the given character is '?', then an IllegalArgumentException is thrown
    *
@@ -45,8 +49,18 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+
+    c = Character.toLowerCase(c);
+
+    int index = (int) c;
+
+    index -= 97;
+
+    if (index > 26 || index < 0) {
+      throw new IllegalArgumentException("Not an alpha character");
+    } else {
+      return index;
+    }
   }
 
   /**
@@ -54,7 +68,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int index = getIndex(c);
+    inventory[index]++;
   }
 
   /**
