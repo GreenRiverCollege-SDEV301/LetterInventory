@@ -103,7 +103,6 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
     return inventory[getIndex(c)] > 0;
   }
 
