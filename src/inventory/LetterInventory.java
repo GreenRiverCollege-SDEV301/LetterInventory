@@ -32,7 +32,22 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    this.inventory = new short[ALPHABET_SIZE];
+
+    for (int i = 0; i < text.length(); i++) {
+      char letter = text.charAt(i);
+      //Subtract 97 as "a" starts at 97 and we want the index to start at 0
+      int index = (int) letter - 97;
+
+      //Capital letters
+      if (index < 0) {
+        index += 32;
+      }
+
+      //Add the letter to the array
+      int newCount = this.inventory[index] + 1;
+      this.inventory[index] = (short) newCount;
+    }
   }
 
   /**
@@ -45,8 +60,15 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+      int index = (int) c - 97;
+      if (index < 0) {
+        return index + 32;
+      }
+      return index;
+    } else {
+      throw new IllegalArgumentException("The given character " + c + " was a non alpha character.");
+    }
   }
 
   /**
