@@ -12,8 +12,10 @@ package inventory;
  * [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z] --> corresponding letters
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
+ * @author Sage Markwardt
+ * @version 1.0
  */
-public class LetterInventory  {
+public class LetterInventory {
 
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
@@ -32,7 +34,11 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    inventory = new short[ALPHABET_SIZE];
+    char[] temp = text.toCharArray();
+    for (int i = 0; i < text.length(); i++) {
+      this.add(temp[i]);
+    }
   }
 
   /**
@@ -44,9 +50,17 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
-  public int getIndex(char c) {
-  //TODO
-    return 0;
+  public int getIndex(char c) throws IllegalArgumentException {
+    // check for uppercase char
+    if (c >= 'A' && c <= 'Z'){
+      return (int)c - 65;
+    } else if (c >= 'a' && c <= 'z'){
+      // check for lowercase char
+      return (int)c - 97;
+    } else {
+      // throw exception if not a letter
+      throw new IllegalArgumentException("Not a letter of the alphabet");
+    }
   }
 
   /**
@@ -54,7 +68,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    this.inventory[this.getIndex(c)] += 1;
   }
 
   /**
@@ -62,7 +76,14 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    // check that there is more than 0 at the index
+    // if none have been counted, we cannot subtract
+    if (inventory[this.getIndex(c)] <= 0){
+      throw new IllegalArgumentException("There are no more of this letter to subtract.");
+    } else {
+      // if there is a positive amount of this character, we can subtract
+      this.inventory[this.getIndex(c)] -= 1;
+    }
   }
 
   /**
@@ -70,8 +91,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z') {
+      return inventory[this.getIndex(c)];
+    } else {
+      throw new IllegalArgumentException("Unexpected character");
+    }
   }
 
   /**
@@ -81,7 +105,12 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count < 0) {
+      throw new IllegalArgumentException("Count cannot be negative");
+    } else {
+      inventory[this.getIndex(c)] = count;
+    }
+
   }
 
   /**
@@ -90,7 +119,11 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
+    // get the count for the char in the index
+    if (this.inventory[getIndex(c)] > 0){
+      // greater than 0 means it does contain that char
+      return true;
+    }
     return false;
   }
 
@@ -99,8 +132,13 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    // create a variable to hold the count
+    int count = 0;
+    // iterate through the array to add up the count
+    for (int i = 0; i < inventory.length; i++) {
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -108,7 +146,11 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
+    // check if size of list is 0
+    if (this.size() == 0){
+      return true;
+    }
+    // if size is greater than 0, it's not empty
     return false;
   }
 
