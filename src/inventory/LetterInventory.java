@@ -15,7 +15,7 @@ package inventory;
  */
 public class LetterInventory  {
 
-  private short[] inventory; // inventory is null here
+  private short[] inventory = new short[26]; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
   /**
@@ -32,12 +32,14 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    for (int i = 0; i < text.length(); i++) {
+      add(text.charAt(i));
+    }
   }
 
   /**
    * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
+   * IllegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
    *              if the given character is '?', then an IllegalArgumentException is thrown
    *
@@ -45,8 +47,13 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122) {
+      return (int) Character.toLowerCase(c) - 'a';
+    }
+    else
+    {
+      throw new IllegalArgumentException("Please enter a valid input (a-z)");
+    }
   }
 
   /**
@@ -54,7 +61,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    inventory[getIndex(c)]++;
   }
 
   /**
@@ -62,7 +69,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
@@ -70,8 +77,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -81,7 +87,14 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122)
+    {
+      inventory[getIndex(c)] = count;
+    }
+    else
+    {
+      throw new IllegalArgumentException("Please enter a valid input (a-z)");
+    }
   }
 
   /**
@@ -91,7 +104,7 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+    return inventory[getIndex(c)] > 0;
   }
 
   /**
@@ -99,8 +112,12 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    short count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -108,8 +125,7 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+      return size() == 0;
   }
 
   /**
