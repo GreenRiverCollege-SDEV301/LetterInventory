@@ -102,8 +102,13 @@ public class LetterInventory extends Throwable  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
-  public void set(char c, short count) {
-    //TODO
+  public void set(char c, short count) throws IllegalArgumentException
+  {
+    if(count < 0)
+    {
+      throw new IllegalArgumentException("Cannot set to Negative");
+    }
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -111,18 +116,34 @@ public class LetterInventory extends Throwable  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
    */
+
+  /**
+   * SDEV 301
+   *
+   * @author Eric Boyd
+   * @version 1.0
+   */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    boolean containsLetter = false;
+    if(inventory[getIndex(c)] > 0)
+    {
+      containsLetter = true;
+    }
+    return containsLetter;
   }
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
-   //TODO
-    return 0;
+  public int size()
+  {
+    int count = 0;
+    for(int i = 0; i < inventory.length; i++)
+    {
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -130,8 +151,15 @@ public class LetterInventory extends Throwable  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    boolean noLetters = true;
+    for(int i = 0; i < inventory.length; i++)
+    {
+      if(inventory[i] > 0)
+      {
+        noLetters = false;
+      }
+    }
+    return noLetters;
   }
 
   /**
