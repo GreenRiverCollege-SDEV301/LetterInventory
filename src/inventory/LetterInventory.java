@@ -33,6 +33,8 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+
   }
 
   /**
@@ -46,7 +48,26 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+
+    int num = (int)c;
+    int index = 0;
+
+    if(num >= 'a' && num <= 'z')
+    {
+      index = num - 'a';
+    }
+
+    else if(num >= 'A' && num <= 'Z')
+    {
+      index = num - 'A';
+    }
+
+    else
+    {
+      throw new IllegalArgumentException("Received a non alpha character");
+    }
+
+    return index;
   }
 
   /**
@@ -55,6 +76,15 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+
+    try
+    {
+      inventory[getIndex(c)]++;
+    }
+    catch(NullPointerException e)
+    {
+      inventory[getIndex(c)] = 0;
+    }
   }
 
   /**

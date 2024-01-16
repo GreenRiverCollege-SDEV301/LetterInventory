@@ -10,7 +10,8 @@ public class Driver {
         System.out.println(inv);
 
         System.out.println(inv.get('e'));
-        System.out.println(inv.getIndex('e'));
+        System.out.println(inv.getIndex('b'));
+        System.out.println(inv.getIndex('z'));
 
 
     }
