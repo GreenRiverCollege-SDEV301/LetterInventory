@@ -1,5 +1,7 @@
 package inventory;
 
+import java.util.Arrays;
+
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
@@ -12,6 +14,8 @@ package inventory;
  * [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z] --> corresponding letters
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
+ * @author Mason Sain
+ * @version 1.0
  */
 public class LetterInventory  {
 
@@ -29,10 +33,14 @@ public class LetterInventory  {
    * Constructs an integer array for the size of the alphabet.
    * Each element in the array should hold a 16-bit integer
    * and adds each character in the text to the inventory
-   * @param text
+   * @param text user text given to the LetterInventory
    */
   public LetterInventory(String text) {
-   //TODO
+   inventory = new short[ALPHABET_SIZE];
+    for (int i = 0; i < text.length(); i++) {
+      char current = text.charAt(i);
+      add(current);
+    }
   }
 
   /**
@@ -45,8 +53,18 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    //Cast to ASCII value
+    int digit = (int) c;
+    //Uppercase? Make lowercase.
+    if (digit > 64 && digit < 91) {
+      c = Character.toLowerCase(c);
+      digit = (int) c;
+    //Out of bounds? Throw Exception
+    } else if (digit < 96 || digit > 123) {
+      throw new IllegalArgumentException("Received a non alpha character.");
+    }
+    //Must be lowercase by now!
+    return digit-97;
   }
 
   /**
@@ -54,7 +72,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int index = getIndex(c);
+    inventory[index]++;
   }
 
   /**
@@ -62,7 +81,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = getIndex(c);
+    inventory[index]--;
   }
 
   /**
@@ -70,8 +90,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+   int index = getIndex(c);
+   return inventory[index];
   }
 
   /**
@@ -81,7 +101,11 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count < 0) {
+      throw new IllegalArgumentException("Count less than 0");
+    }
+    int index = getIndex(c);
+    inventory[index] = count;
   }
 
   /**
@@ -90,8 +114,8 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    int index = getIndex(c);
+      return inventory[index] > 0;
   }
 
   /**
@@ -99,8 +123,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+   int total = 0;
+   for (int value : inventory) {
+     total += value;
+   }
+   return total;
   }
 
   /**
@@ -108,8 +135,11 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    int total = 0;
+    for (int value : inventory) {
+      total += value;
+    }
+    return total == 0;
   }
 
   /**
