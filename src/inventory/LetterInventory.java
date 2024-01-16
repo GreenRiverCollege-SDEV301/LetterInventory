@@ -36,17 +36,7 @@ public class LetterInventory  {
 
     for (int i = 0; i < text.length(); i++) {
       char letter = text.charAt(i);
-      //Subtract 97 as "a" starts at 97 and we want the index to start at 0
-      int index = (int) letter - 97;
-
-      //Capital letters
-      if (index < 0) {
-        index += 32;
-      }
-
-      //Add the letter to the array
-      int newCount = this.inventory[index] + 1;
-      this.inventory[index] = (short) newCount;
+      add(letter);
     }
   }
 
@@ -61,7 +51,9 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
     if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+      //Subtract 97 as "a" starts at 97 and we want the index to start at 0
       int index = (int) c - 97;
+      //Adjust for capital letters
       if (index < 0) {
         return index + 32;
       }
@@ -76,7 +68,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int index = getIndex(c);
+    int newCount = this.inventory[index] + 1;
+    this.inventory[index] = (short) newCount;
   }
 
   /**
@@ -84,7 +78,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = getIndex(c);
+    int newCount = this.inventory[index] - 1;
+    this.inventory[index] = (short) newCount;
   }
 
   /**
@@ -92,8 +88,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+   return this.inventory[getIndex(c)];
   }
 
   /**
@@ -103,7 +98,11 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count < 0) {
+      throw new IllegalArgumentException("The given count " + count + " is less than 0.");
+    }
+
+    this.inventory[getIndex(c)] = count;
   }
 
   /**
@@ -112,8 +111,7 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+      return this.inventory[getIndex(c)] > 0;
   }
 
   /**
@@ -121,8 +119,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int counter = 0;
+    for (short count : this.inventory) {
+     counter += count;
+    }
+    return counter;
   }
 
   /**
@@ -130,8 +131,12 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    for (short count : this.inventory) {
+      if (count > 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
