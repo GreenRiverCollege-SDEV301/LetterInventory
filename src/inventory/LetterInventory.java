@@ -35,7 +35,16 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    //create new empty short arr, sized to ALPHABET_SIZE
+   this.inventory = new short[ALPHABET_SIZE];
+   //make all shorts 0
+   for(short s : this.inventory) {
+     s = 0;
+   }
+   //for each character, increment proper index
+   for(char c : text.toCharArray()) {
+     add(c);
+   }
   }
 
   /**
@@ -69,7 +78,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+  inventory[getIndex(c)]--;
   }
 
   /**
@@ -77,8 +86,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    return this.inventory[getIndex(c)];
   }
 
   /**
@@ -88,7 +96,7 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -106,7 +114,6 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
     return 0;
   }
 
