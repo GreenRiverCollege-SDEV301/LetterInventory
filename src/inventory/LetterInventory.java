@@ -1,3 +1,10 @@
+/**
+ * SDEV 301 Systems Programming
+ *
+ * @Matt Miss
+ * @Version 1.0
+ */
+
 package inventory;
 
 /**
@@ -32,12 +39,16 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    inventory = new short[ALPHABET_SIZE];
+
+    for(int i = 0; i < text.length(); i++){
+      add(text.charAt(i));
+    }
   }
 
   /**
    * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
+   * IllegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
    *              if the given character is '?', then an IllegalArgumentException is thrown
    *
@@ -45,8 +56,12 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if (isChar(c)){
+      int uni = (int)(Character.toUpperCase(c));
+      return uni - 'A';
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -54,7 +69,13 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    if (isChar(c)){
+      System.out.println(c + " was: " + inventory[getIndex(c)]);
+      inventory[getIndex(c)] ++;
+      System.out.println(c + " is now: " + inventory[getIndex(c)]);
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -62,7 +83,16 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    if (isChar(c)){
+      System.out.println(c + " was: " + inventory[getIndex(c)]);
+      inventory[getIndex(c)] --;
+      if (inventory[getIndex(c)] < 0){
+        inventory[getIndex(c)] = 0;
+      }
+      System.out.println(c + " is now: " + inventory[getIndex(c)]);
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -70,8 +100,12 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    System.out.println("Char " + c + " count: " + inventory[getIndex(c)]);
+    if (isChar(c)){
+      return inventory[getIndex(c)];
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -81,7 +115,11 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (isChar(c) && count > 0){
+      inventory[getIndex(c)] = count;
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -90,8 +128,11 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    if (isChar(c)){
+      return inventory[getIndex(c)] > 0;
+    }else{
+      throw new IllegalArgumentException("Received a non alpha character!");
+    }
   }
 
   /**
@@ -99,8 +140,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int sum = 0;
+    for (short s : inventory){
+      sum += s;
+    }
+    return sum;
   }
 
   /**
@@ -108,8 +152,12 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    for (short s : inventory){
+      if (s != 0){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -145,4 +193,7 @@ public class LetterInventory  {
     return toReturn.append("]").toString();
   }
 
+  public boolean isChar(char c){
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+  }
 }
