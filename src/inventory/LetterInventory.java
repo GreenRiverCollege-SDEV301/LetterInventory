@@ -15,7 +15,7 @@ package inventory;
  */
 public class LetterInventory  {
 
-  private short[] inventory; // inventory is null here
+  private short[] inventory = new short [26] ; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
   /**
@@ -33,6 +33,11 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+    for (int i = 0; i < text.length(); i++)
+    {
+      add(text.charAt(i));
+
+    }
 
   }
 
@@ -58,7 +63,7 @@ public class LetterInventory  {
 //    }
 //    else
 //    {
-//      throw new IllegalArgumentException("Received a non alpha character")
+//      throw new IllegalArgumentException("Received a non alpha character");
 //    }
 //
 //    if(isUpperCase){
@@ -67,26 +72,19 @@ public class LetterInventory  {
 //    else {
 //      return c - 'a';
 //    }
-//
+
     int i = Character.toLowerCase(c) - 'a';  // 101 - 97
     return i;         // Answer = 4, because 'e' is index 4
   }
 
   /**
    * Increases the count for the given character in the inventory
-   * @param character a-z or A-Z otherwise an IllegalArgumentException is thrown
+   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char character) {
+  public void add(char c) {
 //TODO
-    int count = 0;
-    for (int i = 0; i < inventory.length; i++)
-    {
-     if(inventory[getIndex(character)] != character)
-     {
-       count++;
-     }
-    }
-    System.out.println(count);
+   inventory[getIndex(c)]++;
+
 
   }
 
@@ -96,6 +94,8 @@ public class LetterInventory  {
    */
   public void subtract(char c) {
   //TODO
+    inventory[getIndex(c)]--;
+
   }
 
   /**
@@ -104,7 +104,9 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    int count = inventory[getIndex(c)];
+
+    return count;
   }
 
   /**
@@ -115,6 +117,7 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -124,6 +127,15 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
+    for (int i = 0; i < inventory.length; i++)
+    {
+      if(inventory[getIndex(c)] == c)
+      {
+        return true;
+      }
+
+    }
+
     return false;
   }
 
@@ -131,18 +143,28 @@ public class LetterInventory  {
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
+  public int size() {       //will be correct if the array size is 0 ?
    //TODO
-    return 0;
+    int count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+        count++;
+    }
+    return count;
   }
 
   /**
    * Determine if the inventory has zero counts for all letters
    * @return true, if empty, false otherwise
    */
-  public boolean isEmpty() {
+  public boolean isEmpty() {      //would be true if the length is 0 ?
     // TODO
-    return false;
+    if(inventory.length == 0)
+    {
+      return true;
+    }
+
+      return false;
   }
 
   /**
