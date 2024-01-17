@@ -49,21 +49,15 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-    // convert input to lowercase
-    if (Character.isUpperCase(c)) {
-      Character.toLowerCase(c);
+    if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) {
+      if (Character.isUpperCase(c)) {
+        return (int)c - 65;
+      }
+      else if (Character.isLowerCase(c)) {
+        return (int)c - 97;
+      }
     }
-    // a = 97
-    int index = (int) c - 'a';
-    // a - z = 0
-    // anything less than 0 means c is not a letter
-    if (index >= 0) {
-      //System.out.println("Index of " + c + " is: " + index);
-      return index;
-    }
-    else {
-      throw new IllegalArgumentException("Parameter 'c' must be either a-z or A-Z");
-    }
+    throw new IllegalArgumentException("Parameter 'c' must be either a-z or A-Z");
   }
 
   /**
@@ -101,7 +95,12 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     int index = this.getIndex(c);
-    this.inventory[index] = count;
+    if (count > 0) {
+      this.inventory[index] = count;
+    }
+    else {
+      throw new IllegalArgumentException("Count " + count + " will result in a negative character count");
+    }
   }
 
   /**
