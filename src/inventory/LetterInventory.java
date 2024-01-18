@@ -19,6 +19,10 @@ import java.util.Arrays;
  */
 public class LetterInventory  {
 
+  //if this was private int[] inventory - it takes up 32 * 26 letters => 832 bits of space
+  //if this was private short[] inventory - it takes up 16 * 26 letters => 416 bits of space (half!)
+  //if this was private byte[] inventory - it takes up 8 * 26 letters => 208 bits of space
+    //only want to do this if letter count < 127
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -36,7 +40,7 @@ public class LetterInventory  {
    * @param text user text given to the LetterInventory
    */
   public LetterInventory(String text) {
-   inventory = new short[ALPHABET_SIZE];
+   this();
     for (int i = 0; i < text.length(); i++) {
       char current = text.charAt(i);
       add(current);
