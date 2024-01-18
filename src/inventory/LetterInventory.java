@@ -1,3 +1,10 @@
+/**
+ * SDEV 301: Systems Programming
+ *
+ * @author Kendrick Hang, Tien Han
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
@@ -14,7 +21,13 @@ package inventory;
  *
  */
 public class LetterInventory  {
-
+  //If this is private int[] inventory - it takes up 32 bits * 26 letters => 832 bits of space
+  //If this is private short[] inventory - it takes upu 16 bits * 26 letters => 416 bits of space
+  //If this is private byte[] inventory - it takes up 8 bits * 26 letters => 208 bits of space
+    //Only want to use byte[] if the letter count < 256
+    //Because 256 is the biggest value you can store with 8 bits
+    //Which is 64 (2^6) + 32  (2^5) + 16 (2^4) + 8 (2^3) + 4 (2^2) + 2 (2^1) + 1 (2^0)
+    //127 bytes per spot in the array (example: so we can only support "a" up to 127)
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -32,7 +45,14 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    //this() will call the constructor LetterInventory() to
+    //initialize our inventory short array.
+    this();
+
+    for (int i = 0; i < text.length(); i++) {
+      char letter = text.charAt(i);
+      add(letter);
+    }
   }
 
   /**
@@ -45,8 +65,17 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+      //Subtract 97 as "a" starts at 97 and we want the index to start at 0
+      int index = (int) c - 97;
+      //Adjust for capital letters
+      if (index < 0) {
+        return index + 32;
+      }
+      return index;
+    } else {
+      throw new IllegalArgumentException("The given character " + c + " was a non alpha character.");
+    }
   }
 
   /**
@@ -54,7 +83,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int index = getIndex(c);
+    int newCount = this.inventory[index] + 1;
+    this.inventory[index] = (short) newCount;
   }
 
   /**
@@ -62,7 +93,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = getIndex(c);
+    int newCount = this.inventory[index] - 1;
+    this.inventory[index] = (short) newCount;
   }
 
   /**
@@ -70,8 +103,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+   return this.inventory[getIndex(c)];
   }
 
   /**
@@ -81,7 +113,11 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count < 0) {
+      throw new IllegalArgumentException("The given count " + count + " is less than 0.");
+    }
+
+    this.inventory[getIndex(c)] = count;
   }
 
   /**
@@ -90,8 +126,7 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+      return this.inventory[getIndex(c)] > 0;
   }
 
   /**
@@ -99,8 +134,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int counter = 0;
+    for (short count : this.inventory) {
+     counter += count;
+    }
+    return counter;
   }
 
   /**
@@ -108,8 +146,12 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    for (short count : this.inventory) {
+      if (count > 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -142,6 +184,8 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
+    //Join in the closing "]"  and convert the StringBuilder
+    //to a String and return it
     return toReturn.append("]").toString();
   }
 
