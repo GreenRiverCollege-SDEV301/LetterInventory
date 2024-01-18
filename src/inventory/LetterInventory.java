@@ -24,7 +24,10 @@ public class LetterInventory  {
    */
   public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
-
+    /*for (int i = 0; i < inventory.length; i++)
+    {
+      System.out.println(inventory[i]);
+    } */
   }
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -43,11 +46,11 @@ public class LetterInventory  {
       System.out.print(arr[i] + ", ");
       //add(get(text.charAt(i)));
     }*/
-    for (int i = 0; i < text.length(); i++)
+    inventory = new short[ALPHABET_SIZE];
+    for (int i = 0; i < text.length()-1; i++)
     {
      add(text.charAt(i));
     }
-
   }
 
   /**
@@ -85,32 +88,28 @@ public class LetterInventory  {
   public void add(char c)
   {
 //TODO
-    try
-    {
       inventory[getIndex(c)]++;
-    }
-    catch(NullPointerException e)
-    {
-      inventory[getIndex(c)] = (short) 0;
-    }
-
   }
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c) {
+  public void subtract(char c)
+  {
   //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
+  public int get(char c)
+  {
    //TODO
-    return 0;
+    int num = inventory[getIndex(c)];
+    return num;
   }
 
   /**
@@ -121,6 +120,10 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    if (count >0)
+    {
+      inventory[getIndex(c)] = count;
+    }
   }
 
   /**
@@ -130,7 +133,21 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+    {
+      if (get(c) > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -139,7 +156,12 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    short total = 0;
+    for (int i = 0; i < inventory.length ; i++)
+    {
+      total += inventory[i];
+    }
+    return total;
   }
 
   /**

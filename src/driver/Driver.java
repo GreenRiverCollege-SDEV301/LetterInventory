@@ -12,7 +12,14 @@ public class Driver {
 
         System.out.println(inv.get('e'));
         System.out.println(inv.getIndex('e'));
+        inv.add('e');
+        inv.add('e');
+        inv.add('l');
+        System.out.println(inv.toString());
+        System.out.println(inv.get('e'));
+        //inv.set('-', (short) 9);
 
+        System.out.println(inv.size());
 
 
 

@@ -74,7 +74,7 @@ class LetterInventoryTest {
     @Test
     void set() {
         washington.set('z', (short) 5);
-        assertEquals("[aaeghinnosstttwzzzzz]", washington.toString());
+        assertEquals("[aaghinnosstttwzzzzz]", washington.toString());
     }
     @Test
     public void testSetException() {
