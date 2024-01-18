@@ -32,7 +32,12 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+   inventory = new short[ALPHABET_SIZE];
+   text = text.toLowerCase();
+    for (int i = 0; i < text.length(); i++) {
+       inventory[text.charAt(i) - 'a']++;
+    }
+
   }
 
   /**
@@ -45,8 +50,10 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if (Character.isLetter(c)) {
+      return Character.toLowerCase(c) - 'a';
+    }
+    throw new IllegalArgumentException("This is not a letter");
   }
 
   /**
@@ -54,7 +61,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    if (Character.isLetter(c)) {
+      inventory[Character.toLowerCase(c) - 'a']++;
+    } else {
+      throw new IllegalArgumentException("This is not a letter");
+    }
   }
 
   /**
@@ -62,7 +73,12 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    if (Character.isLetter(c)) {
+      inventory[Character.toLowerCase(c) - 'a']--;
+    } else {
+      throw new IllegalArgumentException("This is not a letter");
+    }
+
   }
 
   /**
@@ -70,8 +86,10 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    if (Character.isLetter(c)) {
+      return inventory[Character.toLowerCase(c) - 'a'];
+    }
+    throw new IllegalArgumentException("This is not a letter.");
   }
 
   /**
@@ -81,7 +99,15 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (Character.isLetter(c)) {
+      if (count >= 0) {
+        inventory[Character.toLowerCase(c) - 'a'] = count;
+      } else {
+        throw new IllegalArgumentException("You cannot set the occurrences at a negative number");
+      }
+    } else {
+      throw new IllegalArgumentException("This is not a letter");
+    }
   }
 
   /**
@@ -90,8 +116,10 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    if (Character.isLetter(c)) {
+      return inventory[Character.toLowerCase(c) - 'a'] > 0;
+    }
+    throw new IllegalArgumentException("This is not a letter");
   }
 
   /**
@@ -99,8 +127,11 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    short count = 0;
+    for (short i : inventory) {
+      count+= i;
+    }
+    return count;
   }
 
   /**
@@ -108,8 +139,7 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    return size() == 0;
   }
 
   /**
