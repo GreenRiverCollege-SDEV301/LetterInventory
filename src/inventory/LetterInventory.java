@@ -24,10 +24,6 @@ public class LetterInventory  {
    */
   public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
-    /*for (int i = 0; i < inventory.length; i++)
-    {
-      System.out.println(inventory[i]);
-    } */
   }
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -37,15 +33,6 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) throws ArrayIndexOutOfBoundsException
   {
-   //TODO
-    /*
-    short[] arr = new short[text.length()];
-    for (int i = 0; i < text.length(); i++)
-    {
-      arr[i] = (short) getIndex(text.charAt(i));
-      System.out.print(arr[i] + ", ");
-      //add(get(text.charAt(i)));
-    }*/
     inventory = new short[ALPHABET_SIZE];
     for (int i = 0; i < text.length()-1; i++)
     {
@@ -63,9 +50,8 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    int num = (int) c;
-    int index = 0;
+    int num = c;
+    int index;
     if (num >= 'a' && num <= 'z')
     {
       index = num-'a';
@@ -107,7 +93,6 @@ public class LetterInventory  {
    */
   public int get(char c)
   {
-   //TODO
     int num = inventory[getIndex(c)];
     return num;
   }
@@ -119,10 +104,13 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
     if (count >0)
     {
       inventory[getIndex(c)] = count;
+    }
+    else
+    {
+      throw new IllegalArgumentException("count must be greater equal to or greater than 0");
     }
   }
 
@@ -154,13 +142,14 @@ public class LetterInventory  {
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
-   //TODO
-    short total = 0;
+  public int size()
+  {
+    int total = 0;
     for (int i = 0; i < inventory.length ; i++)
     {
       total += inventory[i];
     }
+    System.out.println(total);
     return total;
   }
 
@@ -168,9 +157,14 @@ public class LetterInventory  {
    * Determine if the inventory has zero counts for all letters
    * @return true, if empty, false otherwise
    */
-  public boolean isEmpty() {
-    // TODO
+  public boolean isEmpty()
+  {
+    if (size() == 0)
+    {
+      return true;
+    }
     return false;
+
   }
 
   /**

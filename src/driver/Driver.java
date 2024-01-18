@@ -1,5 +1,10 @@
 package driver;
 
+/*
+    Everett Hanke
+    SDEV 301
+    01/16/24
+ */
 import inventory.LetterInventory;
 
 public class Driver {
@@ -8,20 +13,18 @@ public class Driver {
         LetterInventory inv = new LetterInventory();
         LetterInventory inv1 = new LetterInventory("WashingtonState");
         //System.out.println(inv1);
-        System.out.println(inv.getIndex('Z'));
+        System.out.println("Retrieving index for Z: " + inv.getIndex('Z'));
 
-        System.out.println(inv.get('e'));
-        System.out.println(inv.getIndex('e'));
+        System.out.println("Retrieving count for e: "+ inv.get('e'));
+        System.out.println("Retrieving index for e: " + inv.getIndex('e'));
+        //lets add 3 different letters
         inv.add('e');
         inv.add('e');
         inv.add('l');
-        System.out.println(inv.toString());
-        System.out.println(inv.get('e'));
+        //count out how many e are in the inventory
+        System.out.println("Retrieving count for e: " + inv.get('e'));
         //inv.set('-', (short) 9);
 
-        System.out.println(inv.size());
-
-
-
+        System.out.println("Retrieving size of list: " + inv.size());
     }
 }
