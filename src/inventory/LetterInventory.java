@@ -15,156 +15,159 @@ package inventory;
  */
 public class LetterInventory  {
 
-  private short[] inventory; // inventory is null here
-  public static final byte ALPHABET_SIZE = 26;
+    private short[] inventory; // inventory is null here
+    public static final byte ALPHABET_SIZE = 26;
 
-  /**
-   * Constructs an integer array for the size of the alphabet.
-   * All letter counts are initialized to zero.
-   */
-  public LetterInventory(){
+    /**
+    * Constructs an integer array for the size of the alphabet.
+    * All letter counts are initialized to zero.
+    */
+    public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
-  }
-  /**
-   * Constructs an integer array for the size of the alphabet.
-   * Each element in the array should hold a 16-bit integer
-   * and adds each character in the text to the inventory
-   * @param text
-   */
-  public LetterInventory(String text) {
-    short[] inv = new short[ALPHABET_SIZE];
-    for(int i = 0; i < text.length(); i++){
-        char c = text.charAt(i);
-        if(c >= 'A' && c <= 'Z'){
-            inv[c - 'A'] += 1;
+    }
+
+    /**
+    * Constructs an integer array for the size of the alphabet.
+    * Each element in the array should hold a 16-bit integer
+    * and adds each character in the text to the inventory
+    * @param text
+    */
+    public LetterInventory(String text) {
+        short[] inv = new short[ALPHABET_SIZE];
+        for(int i = 0; i < text.length(); i++){
+            char c = text.charAt(i);
+            if(c >= 'A' && c <= 'Z'){
+                inv[c - 'A'] += 1;
+            }
+            else if(c >= 'a' && c <= 'z'){
+                inv[c - 'a'] += 1;
+            }
+            else{
+                throw new IllegalArgumentException("only A-Z and a-z allowed");
+            }
         }
-        else if(c >= 'a' && c <= 'z'){
-            inv[c - 'a'] += 1;
+        inventory = inv;
+    }
+
+    /**
+    * Identifies the index for the given character within the inventory array , throws an
+    * IIegalArgumentException if the character is not in the a-z or A-Z range.
+    * For example: if the given character is 'c' or 'C', then the index returned is 2
+    *              if the given character is '?', then an IllegalArgumentException is thrown
+    *
+    * @param c a-z or A-Z character
+    * @return index of the character
+    */
+    public int getIndex(char c) {
+        if(!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
+          throw new IllegalArgumentException("no such letter");
+        }
+        else if(c >= 'A' && c <= 'Z') {
+          return c - 'A';
         }
         else{
-            throw new IllegalArgumentException("only A-Z and a-z allowed");
+          return c - 'a';
         }
     }
-    inventory = inv;
-  }
 
-  /**
-   * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
-   * For example: if the given character is 'c' or 'C', then the index returned is 2
-   *              if the given character is '?', then an IllegalArgumentException is thrown
-   *
-   * @param c a-z or A-Z character
-   * @return index of the character
-   */
-  public int getIndex(char c) {
-    if(!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
-      throw new IllegalArgumentException("no such letter");
-    }
-    else if(c >= 'A' && c <= 'Z') {
-      return c - 'A';
-    }
-    else{
-      return c - 'a';
+    /**
+    * Increases the count for the given character in the inventory
+    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+    */
+    public void add(char c) {
+        inventory[getIndex(c)] += 1;
     }
 
-  }
-
-  /**
-   * Increases the count for the given character in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
-   */
-  public void add(char c) {
-    inventory[getIndex(c)] += 1;
-  }
-
-  /**
-   * Decreases the count for the given character in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
-   */
-  public void subtract(char c) {
-  //TODO
-  }
-
-  /**
-   * Returns the count for the given character in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
-   */
-  public int get(char c) {
-   //TODO
-    return 0;
-  }
-
-  /**
-   * Sets the count for the given character in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
-   * @param count the number of occurrences of the character c; if count < 0
-   *              IllegalArgumentException is thrown
-   */
-  public void set(char c, short count) {
-    //TODO
-  }
-
-  /**
-   * Determines if a character's count is in the inventory
-   * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
-   * @return true if character is in inventory, false otherwise
-   */
-  public boolean contains(char c) {
-    //TODO
-    return false;
-  }
-
-  /**
-   * Return the total count of all letters in the inventory
-   * @return total count
-   */
-  public int size() {
-   //TODO
-    return 0;
-  }
-
-  /**
-   * Determine if the inventory has zero counts for all letters
-   * @return true, if empty, false otherwise
-   */
-  public boolean isEmpty() {
-    // TODO
-    //return false;
-    return inventory.length < 1;
-  }
-
-  /**
-   * Returns a String representation of the inventory with the letters all in
-   * lowercase
-   * surrounded by square brackets in alphabetical order. The number of
-   * occurrences of
-   * each letter matches its count in the inventory.
-   * For example, an inventory of 4 a’s, 1 b, 1 k and 1 m would be represented as
-   * “[aaaabkm]”.
-   *
-   * @return a bracketed string representation of the letters contained in the
-   *         inventory
-   */
-  public String toString() {
-    // If you are concatenating many strings together, StringBuilder class
-    // is often more efficient
-    StringBuilder toReturn = new StringBuilder("[");
-
-    // for every count in the letters inventory
-    for (int i = 0; i < inventory.length; i++) {
-      // add each character to the string count times
-      for (int count = 0; count < inventory[i]; count++) {
-        // ascii math performed here
-        // Example:
-        // 'a' + 0 = 'a'
-        // 'a' + 1 = 'b'
-        // 'a' + 2 = 'c'
-        // 'a' + 25 = 'z'
-        toReturn.append((char) ('a' + i));
-      }
+    /**
+    * Decreases the count for the given character in the inventory
+    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+    */
+    public void subtract(char c) {
+        inventory[getIndex(c)] -= 1;
     }
-    return toReturn.append("]").toString();
-  }
 
+    /**
+    * Returns the count for the given character in the inventory
+    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+    */
+    public int get(char c) {
+        return inventory[getIndex(c)];
+    }
+
+    /**
+    * Sets the count for the given character in the inventory
+    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+    * @param count the number of occurrences of the character c; if count < 0
+    *              IllegalArgumentException is thrown
+    */
+    public void set(char c, short count) {
+        if(count < 0){
+            throw new IllegalArgumentException("Count must be positive or zero");
+        }
+        else{
+            inventory[getIndex(c)] = count;
+        }
+    }
+
+    /**
+    * Determines if a character's count is in the inventory
+    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+    * @return true if character is in inventory, false otherwise
+    */
+    public boolean contains(char c) {
+        return inventory[getIndex(c)] > 0;
+    }
+
+    /**
+    * Return the total count of all letters in the inventory
+    * @return total count
+    */
+    public int size() {
+        short count = 0;
+        for(int i = 0; i < inventory.length; i++){
+            count += inventory[i];
+        }
+        return count;
+    }
+
+    /**
+    * Determine if the inventory has zero counts for all letters
+    * @return true, if empty, false otherwise
+    */
+    public boolean isEmpty() {
+        return inventory.length < 1;
+    }
+
+    /**
+    * Returns a String representation of the inventory with the letters all in
+    * lowercase
+    * surrounded by square brackets in alphabetical order. The number of
+    * occurrences of
+    * each letter matches its count in the inventory.
+    * For example, an inventory of 4 a’s, 1 b, 1 k and 1 m would be represented as
+    * “[aaaabkm]”.
+    *
+    * @return a bracketed string representation of the letters contained in the
+    *         inventory
+    */
+    public String toString() {
+        // If you are concatenating many strings together, StringBuilder class
+        // is often more efficient
+        StringBuilder toReturn = new StringBuilder("[");
+
+        // for every count in the letters inventory
+        for (int i = 0; i < inventory.length; i++) {
+            // add each character to the string count times
+            for (int count = 0; count < inventory[i]; count++) {
+              // ascii math performed here
+              // Example:
+              // 'a' + 0 = 'a'
+              // 'a' + 1 = 'b'
+              // 'a' + 2 = 'c'
+              // 'a' + 25 = 'z'
+              toReturn.append((char) ('a' + i));
+            }
+        }
+            return toReturn.append("]").toString();
+    }
 }
