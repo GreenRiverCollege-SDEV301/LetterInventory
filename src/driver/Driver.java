@@ -12,5 +12,7 @@ public class Driver {
         System.out.println(inv.getIndex('a'));
         //System.out.println(inv.add());
 
+        int temp = 1 << 4 ;
+        System.out.println(temp);
     }
 }
