@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LetterInventoryTest {
-/*
+
     static LetterInventory washington;
     static LetterInventory empty;
     static LetterInventory atoz;
@@ -110,7 +110,6 @@ class LetterInventoryTest {
                     atoz.contains('?');
                 }
         );
-
     }
     @Test
     void size() {
@@ -125,5 +124,5 @@ class LetterInventoryTest {
         assertFalse(atoz.isEmpty());
         assertFalse(washington.isEmpty());
     }
-*/
+
 }

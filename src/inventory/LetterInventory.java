@@ -13,8 +13,9 @@ package inventory;
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
  */
-public class LetterInventory  {
 
+public class LetterInventory  {
+  //if this was private int[] inventory - it
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -33,6 +34,9 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+    this();//inherit?
+
+
   }
 
   /**
@@ -46,7 +50,15 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+    int num= (int)c;
+    if(c>='a'&&c<='z'){
+      return num-'a';
+    }
+    else if(c>='A'&&c>='Z'){
+      return num-'A';
+    }else {
+      throw new IllegalArgumentException("error from the character");
+    }
   }
 
   /**
@@ -54,8 +66,23 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    // 检查字符是否在a-z或A-Z的范围内
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+      // 将字符转换为小写，以便不区分大小写
+      c = Character.toLowerCase(c);
+
+      // 获取字符在字母表中的索引
+      int index = getIndex(c);
+
+      // 增加相应字母的计数
+      inventory[index]++;
+    } else {
+      // 如果字符不在a-z或A-Z的范围内，抛出IllegalArgumentException异常
+      throw new IllegalArgumentException("字符不在a-z或A-Z的范围内");
+    }
   }
+
+
 
   /**
    * Decreases the count for the given character in the inventory
@@ -142,7 +169,11 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    //join in the closing ]
+    toReturn.append("]");
+
+    //convert the StringBuilder to a String and return it
+    return toReturn.toString();
   }
 
 }
