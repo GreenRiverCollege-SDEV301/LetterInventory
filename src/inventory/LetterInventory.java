@@ -1,5 +1,7 @@
 package inventory;
 
+import java.util.Arrays;
+
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
@@ -15,6 +17,11 @@ package inventory;
  */
 public class LetterInventory  {
 
+  // if this was private int[] inventory - it takes up 32 bits * 26 letters => 832 bits of space
+  // if this is private short[] inventory - it takes up 16 bits * 26 letters => 416 bits of space
+  // if this is private byte[] inventory - it takes up 8 bits * 26 letters => 288 bits of space
+  // only want to do this if the letter count < 256
+
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -24,6 +31,7 @@ public class LetterInventory  {
    */
   public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
+    System.out.println(Arrays.toString(inventory));
   }
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -32,10 +40,17 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-    int[] array = new int[ALPHABET_SIZE];
+    // OKAY...
+    // inventory = new short[ALPHABET_SIZE];
+
+    // better
+    this();
+
+    // can keep going with code
 
     for (int i = 0; i < text.length(); i++) {
-      add(text.charAt(i));
+      int index = getIndex(text.charAt(i));
+      inventory[index]++;
     }
   }
 
@@ -77,7 +92,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
@@ -157,7 +172,11 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    // join in the closing "]"
+    toReturn.append("]");
+
+    // convert the StringBuilder to a String and return it
+    return toReturn.toString();
   }
 
 }
