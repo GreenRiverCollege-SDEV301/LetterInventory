@@ -58,11 +58,11 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
     //Cast to ASCII value
-    int digit = (int) c;
+    int digit = c;
     //Uppercase? Make lowercase.
     if (digit > 64 && digit < 91) {
       c = Character.toLowerCase(c);
-      digit = (int) c;
+      digit = c;
     //Out of bounds? Throw Exception
     } else if (digit < 96 || digit > 123) {
       throw new IllegalArgumentException("Received a non alpha character.");
