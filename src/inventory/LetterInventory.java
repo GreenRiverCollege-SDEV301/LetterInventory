@@ -15,6 +15,12 @@ package inventory;
  */
 public class LetterInventory  {
 
+  //if inventory was an int[] (int being 32 bits) then it takes up 832 bits of space
+  //that is due to 32*26. (26 being the letters in the alphabet.
+  //if inventory is a short[] then it is 16 bits
+  //16 bits times 26 bits => 416 bits of space which is half the size being saved!
+  //if this private operator was a byte[] it takes up 8 bits * 26 => 208 bits of space
+  //you'll only ever want to use bit[] if the letter count is below 127.
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -34,9 +40,10 @@ public class LetterInventory  {
   public LetterInventory(String text) throws ArrayIndexOutOfBoundsException
   {
     inventory = new short[ALPHABET_SIZE];
-    for (int i = 0; i < text.length()-1; i++)
+    for (int i = 0; i < text.length(); i++)
     {
      add(text.charAt(i));
+     System.out.println("adding letter " + text.charAt(i));
     }
   }
 
@@ -73,8 +80,9 @@ public class LetterInventory  {
    */
   public void add(char c)
   {
-//TODO
+
       inventory[getIndex(c)]++;
+
   }
 
   /**
@@ -104,7 +112,7 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    if (count >0)
+    if (count >= 0)
     {
       inventory[getIndex(c)] = count;
     }
@@ -197,7 +205,8 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    toReturn.append("]");
+    return toReturn.toString();
   }
 
 }

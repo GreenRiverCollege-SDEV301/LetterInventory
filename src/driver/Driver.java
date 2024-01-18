@@ -6,10 +6,12 @@ package driver;
     01/16/24
  */
 import inventory.LetterInventory;
+import inventory.LetterInventoryBits;
 
 public class Driver {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         LetterInventory inv = new LetterInventory();
         LetterInventory inv1 = new LetterInventory("WashingtonState");
         //System.out.println(inv1);
@@ -26,5 +28,21 @@ public class Driver {
         //inv.set('-', (short) 9);
 
         System.out.println("Retrieving size of list: " + inv.size());
+
+        LetterInventory testingByKen = new LetterInventory("washingtonstate");
+        System.out.println(testingByKen.toString());
+
+        //*************************************************************************
+        //testing bitwise letter inventory below
+        LetterInventoryBits inv2 = new LetterInventoryBits();
+        //play arround with how much you want to shift and see the changes 32/12/4/etc do you see it wrap?
+        int temp = 1 << 32;
+        System.out.println("Testing shift 4: " + temp);
+
+        inv2.add('e');
+        inv2.add('p');
+        inv2.add('z');
+        System.out.println(inv2.isPresent('l'));
+        System.out.println(inv2.isPresent('e'));
     }
 }
