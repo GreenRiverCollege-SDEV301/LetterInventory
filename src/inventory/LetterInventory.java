@@ -36,15 +36,7 @@ public class LetterInventory  {
         short[] inv = new short[ALPHABET_SIZE];
         for(int i = 0; i < text.length(); i++){
             char c = text.charAt(i);
-            if(c >= 'A' && c <= 'Z'){
-                inv[c - 'A'] += 1;
-            }
-            else if(c >= 'a' && c <= 'z'){
-                inv[c - 'a'] += 1;
-            }
-            else{
-                throw new IllegalArgumentException("only A-Z and a-z allowed");
-            }
+            inv[getIndex(c)] += 1;
         }
         inventory = inv;
     }
