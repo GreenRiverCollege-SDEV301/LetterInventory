@@ -31,47 +31,61 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
+  //Fills the elements of the inventory array by looping through a string parameter
   public LetterInventory(String text) {
-   //TODO
+    this();
+    for (int i = 0; i < text.length(); i++) {
+      add(text.charAt(i));
+    }
   }
 
   /**
    * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
+   * IllegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
    *              if the given character is '?', then an IllegalArgumentException is thrown
    *
    * @param c a-z or A-Z character
    * @return index of the character
    */
+  //Gets the index where a character c would belong within the inventory array, which
+  // is 26 elements in alphabetical order. if the given character is not an alpha character,
+  // it throws an IllegalArgumentException.
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122) {
+      return (int) Character.toLowerCase(c) - 'a';
+    }
+    else
+    {
+      throw new IllegalArgumentException("Please enter a valid input (a-z)");
+    }
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //Adds a given character c to increment the appropriate index in the inventory array
   public void add(char c) {
-//TODO
+    inventory[getIndex(c)]++;
   }
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //decrements the appropriate index for the given character c within the inventory array
   public void subtract(char c) {
-  //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //gets the index of a given character c
   public int get(char c) {
-   //TODO
-    return 0;
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -80,8 +94,17 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
+  //sets the value of the index for a given character c to a value "count" given as a parameter. If the character is
+  //not alpha or if the count is less than 0, it throws an IllegalArgumentException
   public void set(char c, short count) {
-    //TODO
+    if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122 && count>=0)
+    {
+      inventory[getIndex(c)] = count;
+    }
+    else
+    {
+      throw new IllegalArgumentException("Please enter a valid input (a-z) and count must be a positive integer.");
+    }
   }
 
   /**
@@ -89,27 +112,32 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
    */
+  //Finds the given character c within the inventory array, and returns the index of it.
   public boolean contains(char c) {
-    //TODO
-    return false;
+    return inventory[getIndex(c)] > 0;
   }
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
+  //returns the size of the string that was passed in
   public int size() {
-   //TODO
-    return 0;
+    short count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
    * Determine if the inventory has zero counts for all letters
    * @return true, if empty, false otherwise
    */
+  //checks if the string that was originally passed in is empty
   public boolean isEmpty() {
-    // TODO
-    return false;
+      return size() == 0;
   }
 
   /**
