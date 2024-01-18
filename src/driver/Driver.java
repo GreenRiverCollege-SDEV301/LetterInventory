@@ -8,10 +8,6 @@ public class Driver {
         LetterInventory inv = new LetterInventory();
         //LetterInventory inv = new LetterInventory("WashingtonState");
         System.out.println(inv);
-
-        System.out.println(inv.get('e'));
-        System.out.println(inv.getIndex('e'));
-
-
+        System.out.println(inv.getIndex('b'));
     }
 }
