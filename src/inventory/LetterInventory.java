@@ -168,6 +168,6 @@ public class LetterInventory  {
               toReturn.append((char) ('a' + i));
             }
         }
-            return toReturn.append("]").toString();
+        return toReturn.append("]").toString();
     }
 }
