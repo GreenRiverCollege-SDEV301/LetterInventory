@@ -1,3 +1,10 @@
+/**
+ * SDEV 301
+ *
+ * @author Eric Boyd
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
@@ -13,16 +20,21 @@ package inventory;
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
  */
-public class LetterInventory  {
+
+public class LetterInventory extends Throwable  {
 
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
+  private static final int UNICODE_OF_a = (int)'a';
+  private static final int UNICODE_OF_z = (int)'z';
+  private static final int CAPITAL_TO_LOWER_OFFSET = 32;
 
   /**
    * Constructs an integer array for the size of the alphabet.
    * All letter counts are initialized to zero.
    */
-  public LetterInventory(){
+  public LetterInventory()
+  {
     inventory = new short[ALPHABET_SIZE];
   }
   /**
@@ -31,11 +43,18 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
-  public LetterInventory(String text) {
-   //TODO
+  public LetterInventory(String text)
+  {
+    //inventory = new short[ALPHABET_SIZE];
+    this();
+
+    for(int i = 0; i < text.length(); i++)
+    {
+      add(text.charAt(i));
+    }
   }
 
-  /**
+    /**
    * Identifies the index for the given character within the inventory array , throws an
    * IIegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
@@ -44,34 +63,46 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
-  public int getIndex(char c) {
-  //TODO
-    return 0;
+  public int getIndex(char c) throws IllegalArgumentException
+  {
+    int unicodeValue = (int) c;
+
+    if(unicodeValue < UNICODE_OF_a)
+    {
+      unicodeValue += CAPITAL_TO_LOWER_OFFSET;
+    }
+    if(unicodeValue > UNICODE_OF_z || unicodeValue < UNICODE_OF_a)
+    {
+      throw new IllegalArgumentException("Not a valid Letter");
+    }
+    return unicodeValue - UNICODE_OF_a;
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
-//TODO
+  public void add(char c)
+  {
+      inventory[getIndex(c)] ++;
   }
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c) {
-  //TODO
+  public void subtract(char c)
+  {
+    inventory[getIndex(c)] --;
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
-   //TODO
-    return 0;
+  public int get(char c)
+  {
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -80,8 +111,13 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
-  public void set(char c, short count) {
-    //TODO
+  public void set(char c, short count) throws IllegalArgumentException
+  {
+    if(count < 0)
+    {
+      throw new IllegalArgumentException("Cannot set to Negative");
+    }
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -90,17 +126,26 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    boolean containsLetter = false;
+    if(inventory[getIndex(c)] > 0)
+    {
+      containsLetter = true;
+    }
+    return containsLetter;
   }
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
-   //TODO
-    return 0;
+  public int size()
+  {
+    int count = 0;
+    for(int i = 0; i < inventory.length; i++)
+    {
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -108,8 +153,15 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    boolean noLetters = true;
+    for(int i = 0; i < inventory.length; i++)
+    {
+      if(inventory[i] > 0)
+      {
+        noLetters = false;
+      }
+    }
+    return noLetters;
   }
 
   /**
@@ -144,5 +196,4 @@ public class LetterInventory  {
     }
     return toReturn.append("]").toString();
   }
-
 }
