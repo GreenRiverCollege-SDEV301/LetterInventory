@@ -15,7 +15,7 @@ package inventory;
  */
 public class LetterInventory  {
 
-  private short[] inventory = new short[26]; // inventory is null here
+  private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
   /**
@@ -33,6 +33,7 @@ public class LetterInventory  {
    */
   //Fills the elements of the inventory array by looping through a string parameter
   public LetterInventory(String text) {
+    this();
     for (int i = 0; i < text.length(); i++) {
       add(text.charAt(i));
     }
