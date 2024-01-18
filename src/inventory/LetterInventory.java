@@ -31,6 +31,7 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
+  //Fills the elements of the inventory array by looping through a string parameter
   public LetterInventory(String text) {
     for (int i = 0; i < text.length(); i++) {
       add(text.charAt(i));
@@ -46,6 +47,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
+  //Gets the index where a character c would belong within the inventory array, which
+  // is 26 elements in alphabetical order. if the given character is not an alpha character,
+  // it throws an IllegalArgumentException.
   public int getIndex(char c) {
     if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122) {
       return (int) Character.toLowerCase(c) - 'a';
@@ -60,6 +64,7 @@ public class LetterInventory  {
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //Adds a given character c to increment the appropriate index in the inventory array
   public void add(char c) {
     inventory[getIndex(c)]++;
   }
@@ -68,6 +73,7 @@ public class LetterInventory  {
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //decrements the appropriate index for the given character c within the inventory array
   public void subtract(char c) {
     inventory[getIndex(c)]--;
   }
@@ -76,6 +82,7 @@ public class LetterInventory  {
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
+  //gets the index of a given character c
   public int get(char c) {
     return inventory[getIndex(c)];
   }
@@ -86,6 +93,8 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
+  //sets the value of the index for a given character c to a value "count" given as a parameter. If the character is
+  //not alpha or if the count is less than 0, it throws an IllegalArgumentException
   public void set(char c, short count) {
     if((int)Character.toLowerCase(c) >=97 && (int)Character.toLowerCase(c) <= 122 && count>=0)
     {
@@ -93,7 +102,7 @@ public class LetterInventory  {
     }
     else
     {
-      throw new IllegalArgumentException("Please enter a valid input (a-z)");
+      throw new IllegalArgumentException("Please enter a valid input (a-z) and count must be a positive integer.");
     }
   }
 
@@ -102,6 +111,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
    */
+  //Finds the given character c within the inventory array, and returns the index of it.
   public boolean contains(char c) {
     return inventory[getIndex(c)] > 0;
   }
@@ -110,6 +120,7 @@ public class LetterInventory  {
    * Return the total count of all letters in the inventory
    * @return total count
    */
+  //returns the size of the string that was passed in
   public int size() {
     short count = 0;
     for (int i = 0; i < inventory.length; i++)
@@ -123,6 +134,7 @@ public class LetterInventory  {
    * Determine if the inventory has zero counts for all letters
    * @return true, if empty, false otherwise
    */
+  //checks if the string that was originally passed in is empty
   public boolean isEmpty() {
       return size() == 0;
   }
