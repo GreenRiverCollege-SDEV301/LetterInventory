@@ -135,7 +135,7 @@ public class LetterInventory  {
     * @return true, if empty, false otherwise
     */
     public boolean isEmpty() {
-        return inventory.length < 1;
+        return size() > 0;
     }
 
     /**
