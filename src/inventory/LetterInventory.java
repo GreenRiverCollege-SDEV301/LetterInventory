@@ -58,11 +58,6 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-//    for(int i = 0; i < inventory.length; i++){
-//        if(c == inventory[i]){
-//          return i;
-//        }
-//    }
     if(!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
       throw new IllegalArgumentException("no such letter");
     }
@@ -80,7 +75,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    inventory[getIndex(c)] += 1;
   }
 
   /**
