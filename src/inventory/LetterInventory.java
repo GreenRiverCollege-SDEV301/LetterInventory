@@ -1,3 +1,9 @@
+/**
+ * SDEV 301
+ * @author Pedro Valdovinos-Reyes, Everett Hanke
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
@@ -178,7 +184,17 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+
+    int index = getIndex(c);
+
+    if(index >= 0 && index < ALPHABET_SIZE)
+    {
+      return inventory[index] > 0;
+    }
+    else
+    {
+      throw new IllegalArgumentException("Element is not in a-z or A-Z range");
+    }
   }
 
   /**
@@ -188,9 +204,14 @@ public class LetterInventory  {
   public int size() {
    //TODO
 
+    int completeSize = 0;
 
+    for(int count : inventory)
+    {
+      completeSize += count;
+    }
 
-    return 0;
+    return completeSize;
   }
 
   /**
@@ -199,7 +220,8 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+
+    return size() == 0;
   }
 
   /**
