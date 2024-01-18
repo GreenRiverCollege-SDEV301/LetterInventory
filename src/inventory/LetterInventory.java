@@ -1,7 +1,7 @@
 /**
  * SDEV 301: Systems Programming
  *
- * @author Tien Han
+ * @author Kendrick Hang, Tien Han
  * @version 1.0
  */
 
@@ -21,7 +21,13 @@ package inventory;
  *
  */
 public class LetterInventory  {
-
+  //If this is private int[] inventory - it takes up 32 bits * 26 letters => 832 bits of space
+  //If this is private short[] inventory - it takes upu 16 bits * 26 letters => 416 bits of space
+  //If this is private byte[] inventory - it takes up 8 bits * 26 letters => 208 bits of space
+    //Only want to use byte[] if the letter count < 256
+    //Because 256 is the biggest value you can store with 8 bits
+    //Which is 64 (2^6) + 32  (2^5) + 16 (2^4) + 8 (2^3) + 4 (2^2) + 2 (2^1) + 1 (2^0)
+    //127 bytes per spot in the array (example: so we can only support "a" up to 127)
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -39,7 +45,9 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-    this.inventory = new short[ALPHABET_SIZE];
+    //this() will call the constructor LetterInventory() to
+    //initialize our inventory short array.
+    this();
 
     for (int i = 0; i < text.length(); i++) {
       char letter = text.charAt(i);
@@ -176,6 +184,8 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
+    //Join in the closing "]"  and convert the StringBuilder
+    //to a String and return it
     return toReturn.append("]").toString();
   }
 

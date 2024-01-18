@@ -20,5 +20,7 @@ public class Driver {
         inv.add('a');
         System.out.println(inv);
 
+        int temp = 1 << 4;
+        System.out.println("testing bit shift: " + temp);
     }
 }
