@@ -1,3 +1,10 @@
+/**
+ * SDEV 301
+ *
+ * @author Eric Boyd
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
@@ -13,10 +20,14 @@ package inventory;
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
  */
+
 public class LetterInventory extends Throwable  {
 
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
+  private static final int UNICODE_OF_a = (int)'a';
+  private static final int UNICODE_OF_z = (int)'z';
+  private static final int CAPITAL_TO_LOWER_OFFSET = 32;
 
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -34,7 +45,8 @@ public class LetterInventory extends Throwable  {
    */
   public LetterInventory(String text)
   {
-    inventory = new short[ALPHABET_SIZE];
+    //inventory = new short[ALPHABET_SIZE];
+    this();
 
     for(int i = 0; i < text.length(); i++)
     {
@@ -54,19 +66,16 @@ public class LetterInventory extends Throwable  {
   public int getIndex(char c) throws IllegalArgumentException
   {
     int unicodeValue = (int) c;
-    int UNICODEOFa = (int)'a';
-    int UNICODEOFz = (int)'z';
-    int CAPITALTOLOWEROFFSET = 32;
 
-    if(unicodeValue < UNICODEOFa)
+    if(unicodeValue < UNICODE_OF_a)
     {
-      unicodeValue += CAPITALTOLOWEROFFSET;
+      unicodeValue += CAPITAL_TO_LOWER_OFFSET;
     }
-    if(unicodeValue > UNICODEOFz || unicodeValue < UNICODEOFa)
+    if(unicodeValue > UNICODE_OF_z || unicodeValue < UNICODE_OF_a)
     {
       throw new IllegalArgumentException("Not a valid Letter");
     }
-    return unicodeValue - UNICODEOFa;
+    return unicodeValue - UNICODE_OF_a;
   }
 
   /**
@@ -115,13 +124,6 @@ public class LetterInventory extends Throwable  {
    * Determines if a character's count is in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
-   */
-
-  /**
-   * SDEV 301
-   *
-   * @author Eric Boyd
-   * @version 1.0
    */
   public boolean contains(char c) {
     boolean containsLetter = false;
@@ -194,5 +196,4 @@ public class LetterInventory extends Throwable  {
     }
     return toReturn.append("]").toString();
   }
-
 }
