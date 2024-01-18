@@ -31,10 +31,14 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
-  public LetterInventory(String text) {
+  public LetterInventory(String text) throws IllegalAccessException {
    //TODO
-
-
+    inventory = new short[ALPHABET_SIZE];
+    for(char c : text.toCharArray()){
+      if(Character.isLetter(c)){
+         inventory[getIndex(c)]++;
+      }
+    }
   }
 
   /**
@@ -63,21 +67,8 @@ public class LetterInventory  {
    */
   public void add(char c) throws IllegalAccessException {
 //TODO
-    if((c>='A'&&c<='Z')){
-      for (short i : inventory) {
-        if(i == (short) getIndex(c)){
-
-        }
-      }
-    }else if ((c>='a'&& c<='z')){
-      for (short i : inventory) {
-        if(i == (short) getIndex(c)){
-          int count = 0;
-          count++;
-        }
-      }
-    }else{
-      throw new IllegalAccessException("Not apart of the alphabet- try again!");
+    if(Character.isLetter(c)){
+      inventory[getIndex(c)]++;
     }
   }
 
@@ -85,17 +76,22 @@ public class LetterInventory  {
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c) {
+  public void subtract(char c) throws IllegalAccessException {
   //TODO
+    if(Character.isLetter(c)){
+      inventory[getIndex(c)]--;
+    }
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
+  public int get(char c) throws IllegalAccessException {
    //TODO
-    return 0;
+    if(Character.isLetter(c)){
+      return inventory[getIndex(c)];
+    }else return 0;
   }
 
   /**
@@ -104,8 +100,14 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
-  public void set(char c, short count) {
+  public void set(char c, short count) throws IllegalAccessException {
     //TODO
+    if(Character.isLetter(c)){
+      if(count<0){
+        throw new IllegalAccessException("Count is less than zero- try again.");
+      }
+      inventory[getIndex(c)] = count;
+    }
   }
 
   /**
@@ -113,8 +115,15 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
    */
-  public boolean contains(char c) {
+  public boolean contains(char c) throws IllegalAccessException {
     //TODO
+    if(Character.isLetter(c)){
+      for (int i = 0; i < inventory.length; i++) {
+        if(inventory[getIndex(c)]>0){
+          return true;
+        } else return false;
+      }
+      }
     return false;
   }
 
@@ -124,7 +133,11 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int count=0;
+    for (int i = 0; i < inventory.length; i++) {
+      count+=inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -133,7 +146,12 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    for (int i = 0; i < inventory.length; i++) {
+      if(inventory[i]>0){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**

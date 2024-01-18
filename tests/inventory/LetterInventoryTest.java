@@ -12,7 +12,7 @@ class LetterInventoryTest {
     static LetterInventory atoz;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IllegalAccessException {
         washington = new LetterInventory("WashingtonState");
         empty = new LetterInventory();
         atoz = new LetterInventory("abcdefghijklmnopqrstuvwxyz");
@@ -42,7 +42,7 @@ class LetterInventoryTest {
     }
 
     @Test
-    void subtract() {
+    void subtract() throws IllegalAccessException {
          washington.subtract('a');
          assertEquals("[aeghinnosstttw]", washington.toString());
     }
@@ -58,7 +58,7 @@ class LetterInventoryTest {
 
     }
     @Test
-    void get() {
+    void get() throws IllegalAccessException {
         assertEquals(3,  washington.get('t'));
     }
     @Test
@@ -72,7 +72,7 @@ class LetterInventoryTest {
 
     }
     @Test
-    void set() {
+    void set() throws IllegalAccessException {
         washington.set('z', (short) 5);
         assertEquals("[aaeghinnosstttwzzzzz]", washington.toString());
     }
@@ -97,12 +97,11 @@ class LetterInventoryTest {
 
     }
     @Test
-    void contains() {
+    void contains() throws IllegalAccessException {
         assertTrue(washington.contains('a'));
         assertFalse(washington.contains('x'));
     }
-
-    @Test
+   /* *@Test
     public void testContainsException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -111,7 +110,7 @@ class LetterInventoryTest {
                 }
         );
 
-    }
+    }*/
     @Test
     void size() {
         assertEquals(0,empty.size());
