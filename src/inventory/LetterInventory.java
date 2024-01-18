@@ -86,6 +86,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
+    //TODO
     if(Character.isLetter(c)){
       return inventory[getIndex(c)];
     } else {
@@ -115,6 +116,7 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
+    //TODO
     return (Character.isLetter(c) && inventory[getIndex(c)] > 0);
   }
 
@@ -136,6 +138,7 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
+    //TODO
     return size() == 0;
   }
 
