@@ -1,3 +1,9 @@
+/**
+ * SDEV 301
+ * @author Pedro Valdovinos-Reyes, Everett Hanke
+ * @version 1.0
+ */
+
 package inventory;
 
 /**
@@ -14,6 +20,13 @@ package inventory;
  *
  */
 public class LetterInventory  {
+
+  // if this was private int[] inventory - it takes up 32 bits * 26 letter => 832 bits of space
+
+  // if this is private short[] inventory - it takes up 16 bits * 26 letters => 416 bits of space
+
+  // if this is private byte[] inventory - it takes up 8 bits * 26 letters => 208 bits of space
+    // only want to do this if the letter count < 127
 
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
@@ -33,6 +46,21 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+    //This is okay...
+    //inventory = new short[ALPHABET_SIZE];
+
+    //This is better, as it calls the default constructor
+    this();
+    for (int i = 0; i < text.length(); i++)
+    {
+      char currentChar = text.charAt(i);
+
+      if((currentChar >= 'a' && currentChar <= 'z') || (currentChar >= 'A' && currentChar <= 'Z'))
+      {
+        add(currentChar);
+      }
+    }
   }
 
   /**
@@ -46,7 +74,26 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+
+    int num = (int)c;
+    int index = 0;
+
+    if(num >= 'a' && num <= 'z')
+    {
+      index = num - 'a';
+    }
+
+    else if(num >= 'A' && num <= 'Z')
+    {
+      index = num - 'A';
+    }
+
+    else
+    {
+      throw new IllegalArgumentException("Received a non alpha character");
+    }
+
+    return index;
   }
 
   /**
@@ -55,6 +102,15 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+
+    try
+    {
+      inventory[getIndex(c)]++;
+    }
+    catch(NullPointerException e)
+    {
+      inventory[getIndex(c)] = 1;
+    }
   }
 
   /**
@@ -63,6 +119,16 @@ public class LetterInventory  {
    */
   public void subtract(char c) {
   //TODO
+
+    try
+    {
+      inventory[getIndex(c)]--;
+    }
+    catch(NullPointerException e)
+    {
+      inventory[getIndex(c)] = 0;
+    }
+
   }
 
   /**
@@ -71,7 +137,15 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+
+    int index = getIndex(c);
+    if (index >= 0 && index < ALPHABET_SIZE) {
+      return inventory[index];
+    }
+    else
+    {
+      throw new IllegalArgumentException("Character is not in the a-z or A-Z range");
+    }
   }
 
   /**
@@ -82,6 +156,25 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+
+    int index = getIndex(c);
+
+    if(index >= 0 && index < ALPHABET_SIZE)
+    {
+      if(count >= 0)
+      {
+        inventory[index] = count;
+      }
+      else
+      {
+        throw new IllegalArgumentException("Count can't be negative");
+      }
+    }
+    else
+    {
+      throw new IllegalArgumentException("Character is not in the a-z or A-Z range");
+    }
+
   }
 
   /**
@@ -91,7 +184,17 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+
+    int index = getIndex(c);
+
+    if(index >= 0 && index < ALPHABET_SIZE)
+    {
+      return inventory[index] > 0;
+    }
+    else
+    {
+      throw new IllegalArgumentException("Element is not in a-z or A-Z range");
+    }
   }
 
   /**
@@ -100,7 +203,15 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+
+    int completeSize = 0;
+
+    for(int count : inventory)
+    {
+      completeSize += count;
+    }
+
+    return completeSize;
   }
 
   /**
@@ -109,7 +220,8 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+
+    return size() == 0;
   }
 
   /**
@@ -142,7 +254,11 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    //join in the closing ]
+    toReturn.append("]");
+
+    //convert the StringBuilder to a String and return it
+    return toReturn.toString();
   }
 
 }
