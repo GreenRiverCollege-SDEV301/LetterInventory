@@ -10,7 +10,11 @@ public class Driver {
         System.out.println(inv);
 
         System.out.println(inv.get('e'));
-        System.out.println(inv.getIndex('e'));
+        System.out.println(inv.getIndex('f'));
+
+         inv.add('a');
+        System.out.println("this is the array");
+        System.out.println(inv);
 
 
 
