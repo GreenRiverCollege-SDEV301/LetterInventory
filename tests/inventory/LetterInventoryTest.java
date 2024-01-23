@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LetterInventoryTest {
-/*
+
     static LetterInventory washington;
     static LetterInventory empty;
     static LetterInventory atoz;
@@ -43,8 +43,8 @@ class LetterInventoryTest {
 
     @Test
     void subtract() {
-         washington.subtract('a');
-         assertEquals("[aeghinnosstttw]", washington.toString());
+        washington.subtract('a');
+        assertEquals("[aeghinnosstttw]", washington.toString());
     }
 
     @Test
@@ -125,5 +125,5 @@ class LetterInventoryTest {
         assertFalse(atoz.isEmpty());
         assertFalse(washington.isEmpty());
     }
-*/
+
 }

@@ -15,7 +15,12 @@ package inventory;
  */
 public class LetterInventory  {
 
-  private short[] inventory; // inventory is null here
+  //If this was private int[] inventory - tit takes upp 32 bits + 26 letters = 832 bits of space
+  //If this is private short[] inventory - it takes up 16 bits + 26 letters = 416 bits of space
+  //If this is private byte[] inventory - it takes up 8 bits + 26 letters = 208 bits of space
+  //only want to do this if the letter count < 2127
+
+  private final short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
   /**
@@ -29,10 +34,20 @@ public class LetterInventory  {
    * Constructs an integer array for the size of the alphabet.
    * Each element in the array should hold a 16-bit integer
    * and adds each character in the text to the inventory
-   * @param text
+   * @param text a string value
    */
   public LetterInventory(String text) {
-   //TODO
+    //TODO
+
+    //method 1: calling the same function from the top using this() 'default constructor'
+    this();
+
+    for (int i = 0; i < text.length(); i++)
+    {
+      add(text.charAt(i));
+
+    }
+
   }
 
   /**
@@ -45,9 +60,15 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
-  }
+    //TODO
+
+      char letter = Character.toLowerCase(c);
+      if((int)letter >= 97 && (int)letter <= 122){
+        return (int)letter -97;
+      }else {
+        throw new IllegalArgumentException(c + " is not a letter.");
+      }
+    }
 
   /**
    * Increases the count for the given character in the inventory
@@ -55,6 +76,12 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z')) {
+      inventory[getIndex(c)]++;
+    }
+    else {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -62,7 +89,13 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    //TODO
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z')) {
+      inventory[getIndex(c)]--;
+    }
+    else {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -70,8 +103,12 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    //TODO
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+      return inventory[getIndex(c)];
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -82,6 +119,13 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z') && count > 0)
+    {
+      inventory[getIndex(c)] = count;
+    }
+    else {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -91,16 +135,26 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+
+    if ((c <= 'A' && c >='Z') || (c <='a' && c >='z')) {
+      throw new IllegalArgumentException();
+    }
+    else return inventory[getIndex(c)] > 0;
   }
+
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
-   //TODO
-    return 0;
+  public int size() {       //will be correct if the array size is 0 ?
+    //TODO
+    short count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+      count += inventory[i]; //if it is 0, add 0
+    }
+    return count;
   }
 
   /**
@@ -109,8 +163,10 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+return size()==0;
   }
+
+
 
   /**
    * Returns a String representation of the inventory with the letters all in
@@ -142,7 +198,12 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+
+    toReturn.append("]"); //add to the stringBuilder array
+
+    return toReturn.toString(); //convert the StringBuilder to String and return it
+
+
   }
 
 }
