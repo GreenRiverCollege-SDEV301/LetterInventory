@@ -1,6 +1,13 @@
 package inventory;
 
 /**
+ * Keeps track of characters
+ *
+ * @author Yadira Cervantes
+ * @version 1.0
+ */
+
+/**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
  * are contained in the inventory. This object stores the counts of the letters
@@ -15,6 +22,9 @@ package inventory;
  */
 public class LetterInventory  {
 
+  // int - 32 bit
+  // short - 16 bit
+  // byte - 8 bit (max num = 127)
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -23,8 +33,9 @@ public class LetterInventory  {
    * All letter counts are initialized to zero.
    */
   public LetterInventory(){
-    inventory = new short[ALPHABET_SIZE];
+    this.inventory = new short[ALPHABET_SIZE];
   }
+
   /**
    * Constructs an integer array for the size of the alphabet.
    * Each element in the array should hold a 16-bit integer
@@ -32,7 +43,11 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    this(); // calls default constructor
+
+    for(int i = 0; i < text.length(); i++) {
+      add(text.charAt(i));
+    }
   }
 
   /**
@@ -45,8 +60,13 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    if(c >= 'a' && c <= 'z') {
+      return (int) c - 97;
+    } else if(c >= 'A' && c <= 'Z') {
+      return (int) c - 65;
+    }
+
+    throw new IllegalArgumentException("Character is not in the range a-z.");
   }
 
   /**
@@ -54,7 +74,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+    int i = getIndex(c);
+
+    this.inventory[i] += 1;
   }
 
   /**
@@ -62,7 +84,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int i = getIndex(c);
+
+    if(this.inventory[i] > 0) {
+      this.inventory[i] -= 1;
+    }
   }
 
   /**
@@ -70,8 +96,9 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    int i = getIndex(c);
+
+    return this.inventory[i];
   }
 
   /**
@@ -81,7 +108,12 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if(count > 0)  {
+      int i = getIndex(c);
+      this.inventory[i] = count;
+    } else {
+      throw new IllegalArgumentException("Count is less than 0");
+    }
   }
 
   /**
@@ -91,6 +123,12 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
+    int i = getIndex(c);
+
+    if(this.inventory[i] > 0) {
+      return true;
+    }
+
     return false;
   }
 
@@ -100,7 +138,13 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int count = 0;
+
+    for(short s : this.inventory) {
+      count += s;
+    }
+
+    return count;
   }
 
   /**
@@ -109,7 +153,8 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    int count = size();
+    return count == 0;
   }
 
   /**
