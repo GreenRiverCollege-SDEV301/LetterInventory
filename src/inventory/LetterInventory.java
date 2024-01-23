@@ -15,6 +15,11 @@ package inventory;
  */
 public class LetterInventory  {
 
+  //If this was private int[] inventory - tit takes upp 32 bits + 26 letters = 832 bits of space
+  //If this is private short[] inventory - it takes up 16 bits + 26 letters = 416 bits of space
+  //If this is private byte[] inventory - it takes up 8 bits + 26 letters = 208 bits of space
+  //only want to do this if the letter count < 2127
+
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -33,6 +38,16 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+    //method 1: calling the same function from the top using this() 'default constructor'
+    this();
+
+    for (int i = 0; i < text.length(); i++)
+    {
+      add(text.charAt(i));
+
+    }
+
   }
 
   /**
@@ -46,7 +61,36 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+
+    //first method
+//    boolean isUpperCase = false;
+//    boolean isLowerCase = false;
+//
+//    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+//    {
+//      isLowerCase = true;
+//    }
+//    else
+//    {
+//      throw new IllegalArgumentException("Received a non alpha character");
+//    }
+//
+//    if(isUpperCase){
+//      return c - 'A';
+//    }
+//    else {
+//      return c - 'a';
+//    }
+
+//    int i = Character.toLowerCase(c) - 'a';  // 101 - 97
+//    return i;         // Answer = 4, because 'e' is index 4
+
+    char letter = Character.toLowerCase(c);
+    if((int)letter >= 97 && (int)letter <= 122){
+      return (int)letter -97;
+    }else {
+      throw new IllegalArgumentException(c + " is not a letter.");
+    }
   }
 
   /**
@@ -55,6 +99,15 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+    {
+      inventory[getIndex(c)]++;
+    }
+    else
+    {
+      throw new IllegalArgumentException(c + " is not a letter.");
+    }
+
   }
 
   /**
@@ -63,6 +116,16 @@ public class LetterInventory  {
    */
   public void subtract(char c) {
   //TODO
+
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+    {
+      inventory[getIndex(c)]--;
+    }
+    else
+    {
+      throw new IllegalArgumentException(c + " is not a letter.");
+    }
+
   }
 
   /**
@@ -71,7 +134,17 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+    {
+      int count = inventory[getIndex(c)];
+
+      return count;
+    }
+    else
+    {
+
+      throw new IllegalArgumentException(c + " is not a letter.");
+    }
   }
 
   /**
@@ -82,6 +155,14 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z') && count >= 0)
+    {
+      inventory[getIndex(c)] = count;
+    }
+    else {
+      throw new IllegalArgumentException(c + " is not a letter.");
+
+    }
   }
 
   /**
@@ -91,16 +172,30 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+    if((c >= 'A' && c <='Z') || (c >='a' && c <='z'))
+    {
+      return inventory[getIndex(c)] >= 1;
+    }
+    else {
+      throw new IllegalArgumentException(c + " is not a letter.");
+
+    }
+
+
   }
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
+  public int size() {       //will be correct if the array size is 0 ?
    //TODO
-    return 0;
+    short count = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+        count += inventory[i]; //if it is 0, add 0
+    }
+    return count;
   }
 
   /**
@@ -109,7 +204,7 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    return size() == 0;
   }
 
   /**
@@ -142,7 +237,12 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+
+    toReturn.append("]"); //add to the stringBuilder array
+
+    return toReturn.toString(); //convert the StringBuilder to String and return it
+
+
   }
 
 }
