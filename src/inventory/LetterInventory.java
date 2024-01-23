@@ -34,8 +34,13 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
-    this();//inherit?
-
+    this();//This is known as constructor chaining.
+    for (int i = 0; i < text.length(); i++)
+    {
+      char n = text.charAt(i);
+      System.out.println(n);
+      add(n);
+    }
 
   }
 
@@ -54,7 +59,7 @@ public class LetterInventory  {
     if(c>='a'&&c<='z'){
       return num-'a';
     }
-    else if(c>='A'&&c>='Z'){
+    else if(c>='A'&&c<='Z'){
       return num-'A';
     }else {
       throw new IllegalArgumentException("error from the character");
@@ -66,20 +71,13 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-    // 检查字符是否在a-z或A-Z的范围内
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
-      // 将字符转换为小写，以便不区分大小写
-      c = Character.toLowerCase(c);
 
       // 获取字符在字母表中的索引
       int index = getIndex(c);
-
-      // 增加相应字母的计数
+    // 增加相应字母的计数
       inventory[index]++;
-    } else {
-      // 如果字符不在a-z或A-Z的范围内，抛出IllegalArgumentException异常
-      throw new IllegalArgumentException("字符不在a-z或A-Z的范围内");
-    }
+
+
   }
 
 
@@ -89,7 +87,8 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = get(c);
+    inventory[index]--;
   }
 
   /**
@@ -98,7 +97,17 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    // 使用 getIndex 方法来找到字符的索引
+    int index = getIndex(c);
+    //  in constructor LetterInventory(String text),
+    // add() been used
+
+    // 返回该索引位置的计数
+    return inventory[index];
+
+    //because getIndex(c) already has IllegalArgumentException
+
+
   }
 
   /**

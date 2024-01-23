@@ -110,6 +110,7 @@ class LetterInventoryTest {
                     atoz.contains('?');
                 }
         );
+
     }
     @Test
     void size() {
