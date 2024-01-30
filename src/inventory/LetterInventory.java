@@ -87,7 +87,7 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-    int index = get(c);
+    int index = getIndex(c);
     inventory[index]--;
   }
 
@@ -99,15 +99,11 @@ public class LetterInventory  {
    //TODO
     // 使用 getIndex 方法来找到字符的索引
     int index = getIndex(c);
-    //  in constructor LetterInventory(String text),
     // add() been used
-
+    //  in constructor LetterInventory(String text),
     // 返回该索引位置的计数
     return inventory[index];
-
     //because getIndex(c) already has IllegalArgumentException
-
-
   }
 
   /**
@@ -118,6 +114,15 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    if(count>=0)
+    {
+      int index = getIndex(c);
+
+      inventory[index] = count;
+    }
+    else {
+      throw new IllegalArgumentException("count cannot be less than 0");
+    }
   }
 
   /**
@@ -127,6 +132,10 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
+    int index = get(c);
+    if(index > 0){
+      return true;
+    }
     return false;
   }
 
@@ -136,7 +145,12 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int size = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+        size+=inventory[i];
+    }
+    return size;
   }
 
   /**
@@ -145,7 +159,13 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    for (int i = 0; i < inventory.length; i++)
+    {
+      if(inventory[i]>0){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
