@@ -15,6 +15,12 @@ package inventory;
  */
 public class LetterInventory  {
 
+  //if inventory was an int[] (int being 32 bits) then it takes up 832 bits of space
+  //that is due to 32*26. (26 being the letters in the alphabet.
+  //if inventory is a short[] then it is 16 bits
+  //16 bits times 26 bits => 416 bits of space which is half the size being saved!
+  //if this private operator was a byte[] it takes up 8 bits * 26 => 208 bits of space
+  //you'll only ever want to use bit[] if the letter count is below 127.
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -31,8 +37,14 @@ public class LetterInventory  {
    * and adds each character in the text to the inventory
    * @param text
    */
-  public LetterInventory(String text) {
-   //TODO
+  public LetterInventory(String text) throws ArrayIndexOutOfBoundsException
+  {
+    inventory = new short[ALPHABET_SIZE];
+    for (int i = 0; i < text.length(); i++)
+    {
+     add(text.charAt(i));
+     System.out.println("adding letter " + text.charAt(i));
+    }
   }
 
   /**
@@ -45,33 +57,52 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    int num = c;
+    int index;
+    if (num >= 'a' && num <= 'z')
+    {
+      index = num-'a';
+    }
+    else if (num >= 'A' && num <= 'Z')
+    {
+      index = num-'A';
+    }
+    else
+    {
+      throw new IllegalArgumentException("Received a non alphanumeric number");
+    }
+    return index;
   }
 
   /**
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c) {
-//TODO
+  public void add(char c)
+  {
+
+      inventory[getIndex(c)]++;
+
   }
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c) {
+  public void subtract(char c)
+  {
   //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
    * Returns the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
-   //TODO
-    return 0;
+  public int get(char c)
+  {
+    int num = inventory[getIndex(c)];
+    return num;
   }
 
   /**
@@ -81,7 +112,14 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count >= 0)
+    {
+      inventory[getIndex(c)] = count;
+    }
+    else
+    {
+      throw new IllegalArgumentException("count must be greater equal to or greater than 0");
+    }
   }
 
   /**
@@ -91,25 +129,50 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+    {
+      if (get(c) > 0)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+    else
+    {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
    * Return the total count of all letters in the inventory
    * @return total count
    */
-  public int size() {
-   //TODO
-    return 0;
+  public int size()
+  {
+    int total = 0;
+    for (int i = 0; i < inventory.length ; i++)
+    {
+      total += inventory[i];
+    }
+    System.out.println(total);
+    return total;
   }
 
   /**
    * Determine if the inventory has zero counts for all letters
    * @return true, if empty, false otherwise
    */
-  public boolean isEmpty() {
-    // TODO
+  public boolean isEmpty()
+  {
+    if (size() == 0)
+    {
+      return true;
+    }
     return false;
+
   }
 
   /**
@@ -142,7 +205,8 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    toReturn.append("]");
+    return toReturn.toString();
   }
 
 }
