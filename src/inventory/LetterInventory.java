@@ -33,6 +33,8 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+
+
   }
 
   /**
@@ -46,6 +48,16 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
+    boolean isUpperCase = false;
+    boolean isLowerCase = false;
+    int num = (int)c;
+    if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+      isLowerCase = true;
+      isUpperCase = true;
+    }
+    else {
+      throw new IllegalArgumentException("Error non alpha character");
+    }
     return 0;
   }
 
@@ -55,6 +67,8 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+    int index = getIndex(c);
+    inventory[index]++;
   }
 
   /**
@@ -63,6 +77,12 @@ public class LetterInventory  {
    */
   public void subtract(char c) {
   //TODO
+    int index = getIndex(c);
+    if (inventory[index] > 0) {
+      inventory[index]--;
+    } else {
+      throw new IllegalArgumentException("Error: Attempting to subtract from zero count");
+    }
   }
 
   /**
@@ -71,7 +91,8 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    int index = getIndex(c);
+    return inventory[index];
   }
 
   /**
@@ -81,7 +102,12 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if (count < 0) {
+      throw new IllegalArgumentException("Error: Count cannot be negative");
+    }
+
+    int index = getIndex(c);
+    inventory[index] = count;
   }
 
   /**
@@ -91,7 +117,8 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
-    return false;
+    int index = getIndex(c);
+    return inventory[index] > 0;
   }
 
   /**
@@ -100,7 +127,11 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int total = 0;
+    for (short count : inventory) {
+      total += count;
+    }
+    return total;
   }
 
   /**
@@ -109,7 +140,7 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    return size() == 0;
   }
 
   /**
