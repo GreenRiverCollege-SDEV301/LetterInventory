@@ -1,5 +1,4 @@
 package inventory;
-
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
@@ -11,7 +10,8 @@ package inventory;
  * [2,0,0,0,1,0,1,1,1,0,0,0,0,2,1,0,0,0,2,3,0,0,1,0,0,0] --> inventory count array
  * [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z] --> corresponding letters
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
- *
+ * @author nathantapia-ramirez
+ * @version 1.0
  */
 public class LetterInventory  {
 
@@ -49,13 +49,10 @@ public class LetterInventory  {
    * @return index of the character
    */
   public int getIndex(char c) {
-  //TODO
-    if((c>='A'&&c<='Z')){
-        return c-'A';
-    }else if ((c>='a'&& c<='z')){
-        return c-'a';
-    }else{
-      throw new IllegalArgumentException("Not a valid alphabet character: " + c);
+    if (Character.isLetter(c)) {
+      return Character.toLowerCase(c) - 'a'; // Normalize case
+    } else {
+      throw new IllegalArgumentException("Character must be a letter from a-z or A-Z.");
     }
   }
 
@@ -63,10 +60,15 @@ public class LetterInventory  {
    * Increases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void add(char c){
-//TODO
-    if(Character.isLetter(c)){
-      inventory[getIndex(c)]++;
+  public void add(char c) {
+    if (!Character.isLetter(c)) {
+      throw new IllegalArgumentException("Character must be a letter from a-z or A-Z.");
+    }
+    int index = getIndex(c);
+    if (inventory[index] < Short.MAX_VALUE) {
+      inventory[index]++;
+    } else {
+      throw new IllegalArgumentException("Maximum count reached for " + c);
     }
   }
 
@@ -74,10 +76,15 @@ public class LetterInventory  {
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public void subtract(char c){
-  //TODO
-    if(Character.isLetter(c)){
-      inventory[getIndex(c)]--;
+  public void subtract(char c) {
+    if (!Character.isLetter(c)) {
+      throw new IllegalArgumentException("Character must be a letter from a-z or A-Z.");
+    }
+    int index = getIndex(c);
+    if (inventory[index] > 0) {
+      inventory[index]--;
+    } else {
+      throw new IllegalArgumentException("Cannot subtract as count is already zero for " + c);
     }
   }
 
@@ -86,12 +93,10 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-    //TODO
-    if(Character.isLetter(c)){
-      return inventory[getIndex(c)];
-    } else {
-      return 0;
+    if (!Character.isLetter(c)) {
+      throw new IllegalArgumentException("Character must be a letter from a-z or A-Z.");
     }
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -100,14 +105,11 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
-  public void set(char c, short count) throws IllegalAccessException {
-    //TODO
-    if(Character.isLetter(c)){
-      if(count<=0){
-        throw new IllegalAccessException("Count should be greater than zero.");
-      }
-      inventory[getIndex(c)] = count;
+  public void set(char c, short count) {
+    if (!Character.isLetter(c) || count < 0) {
+      throw new IllegalArgumentException("Character must be a letter and count cannot be negative.");
     }
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -116,9 +118,12 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return (Character.isLetter(c) && inventory[getIndex(c)] > 0);
+    if (!Character.isLetter(c)) {
+      return false;
+    }
+    return inventory[getIndex(c)] > 0;
   }
+
 
   /**
    * Return the total count of all letters in the inventory
