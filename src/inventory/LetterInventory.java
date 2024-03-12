@@ -32,46 +32,85 @@ public class LetterInventory  {
    * @param text
    */
   public LetterInventory(String text) {
-   //TODO
+    this();
   }
 
   /**
    * Identifies the index for the given character within the inventory array , throws an
-   * IIegalArgumentException if the character is not in the a-z or A-Z range.
+   * IlegalArgumentException if the character is not in the a-z or A-Z range.
    * For example: if the given character is 'c' or 'C', then the index returned is 2
    *              if the given character is '?', then an IllegalArgumentException is thrown
    *
    * @param c a-z or A-Z character
    * @return index of the character
    */
+  @Override
   public int getIndex(char c) {
-  //TODO
-    return 0;
+    boolean isUpperCase = false;
+    boolean isLowerCase = false;
+
+    if (c >= 'A' && c <= 'Z') {
+      isUpperCase = true;
+    } else if (c >= 'a' && c <= 'z') {
+      isLowerCase = true;
+    } else {
+        throw new IllegalArgumentException();
+    }
+
+    if(isUpperCase = true){
+      return 2;
+    }
+    if(isLowerCase = true){
+      return 2;
+    } else {
+      return 0;
+    }
   }
 
   /**
    * Increases the count for the given character in the inventory
+   *
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+   * @return
    */
-  public void add(char c) {
-//TODO
-  }
+  public short add(char c) {
+      if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+        count++;
+      } else {
+        return 0;
+      }
+    return 0;
+    }
 
   /**
    * Decreases the count for the given character in the inventory
+   *
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
+   * @return
    */
-  public void subtract(char c) {
-  //TODO
+  public short subtract(char c) {
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+      count--;
+    } else {
+      return 0;
+    }
   }
 
   /**
    * Returns the count for the given character in the inventory
+   *
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
-  public int get(char c) {
-   //TODO
-    return 0;
+  public void get(char character) {
+    int sum = 0;
+    for (int character = 0; character < num.length; character++){
+      sum += num[character];
+    }
+    System.out.println("sum =" + sum);
+    for(int character = 0; character <num.length; character ++){
+      System.out.println(num[character]);
+    }
+    return;
   }
 
   /**
@@ -81,7 +120,11 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+      count = ++;
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -89,9 +132,12 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    * @return true if character is in inventory, false otherwise
    */
-  public boolean contains(char c) {
-    //TODO
-    return false;
+  public boolean contains(char character) {
+    if (int character >= 65 && int character <= 90) || (int character >=97 && int character <=122){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   /**
@@ -99,7 +145,7 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
+    if()
     return 0;
   }
 
