@@ -6,20 +6,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LetterInventoryTest {
-/*
+
     static LetterInventory washington;
     static LetterInventory empty;
     static LetterInventory atoz;
 
     @BeforeEach
-    void setUp() {
+    void setUp(){
         washington = new LetterInventory("WashingtonState");
         empty = new LetterInventory();
         atoz = new LetterInventory("abcdefghijklmnopqrstuvwxyz");
     }
 
     @Test
-    void getIndex() {
+    void getIndex(){
         for (int i = 0; i < LetterInventory.ALPHABET_SIZE; i++) {
             assertEquals(i,washington.getIndex((char)('a' + i)));
         }
@@ -31,7 +31,7 @@ class LetterInventoryTest {
     }
 
     @Test
-    public void testAddException() {
+    /*public void testAddException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
                     // Add your code that is expected to throw the exception
@@ -39,15 +39,12 @@ class LetterInventoryTest {
                 }
         );
 
-    }
-
-    @Test
-    void subtract() {
+    }*/ void subtract(){
          washington.subtract('a');
          assertEquals("[aeghinnosstttw]", washington.toString());
     }
 
-    @Test
+    /*@Test
     public void testSubtractException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -56,12 +53,12 @@ class LetterInventoryTest {
                 }
         );
 
-    }
+    }*/
     @Test
-    void get() {
+    void get(){
         assertEquals(3,  washington.get('t'));
     }
-    @Test
+    /*@Test
     public void testGetException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -70,13 +67,13 @@ class LetterInventoryTest {
                 }
         );
 
-    }
+    }*/
     @Test
-    void set() {
+    void set() throws IllegalAccessException {
         washington.set('z', (short) 5);
         assertEquals("[aaeghinnosstttwzzzzz]", washington.toString());
     }
-    @Test
+    /*@Test
     public void testSetException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -85,8 +82,8 @@ class LetterInventoryTest {
                 }
         );
 
-    }
-    @Test
+    }*/
+    /*@Test
     public void testSetException2() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -95,14 +92,13 @@ class LetterInventoryTest {
                 }
         );
 
-    }
+    }*/
     @Test
-    void contains() {
+    void contains(){
         assertTrue(washington.contains('a'));
         assertFalse(washington.contains('x'));
     }
-
-    @Test
+   /* *@Test
     public void testContainsException() {
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -111,7 +107,7 @@ class LetterInventoryTest {
                 }
         );
 
-    }
+    }*/
     @Test
     void size() {
         assertEquals(0,empty.size());
@@ -125,5 +121,5 @@ class LetterInventoryTest {
         assertFalse(atoz.isEmpty());
         assertFalse(washington.isEmpty());
     }
-*/
+
 }
