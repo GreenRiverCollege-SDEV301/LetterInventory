@@ -1,3 +1,10 @@
+/**
+ * SDEV 301 Systems Programming
+ *
+ * @Matt Miss
+ * @Version 1.0
+ */
+
 package inventory;
 
 /**
