@@ -44,5 +44,8 @@ public class Driver {
         inv2.add('z');
         System.out.println(inv2.isPresent('l'));
         System.out.println(inv2.isPresent('e'));
+        System.out.println(inv2.isPresent('g'));
+        inv2.add('g');
+        System.out.println(inv2.isPresent('g'));
     }
 }
