@@ -1,5 +1,5 @@
 package inventory;
-
+//Hao
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
