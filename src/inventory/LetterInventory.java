@@ -31,7 +31,6 @@ public class LetterInventory  {
    */
   public LetterInventory(){
     inventory = new short[ALPHABET_SIZE];
-    System.out.println(Arrays.toString(inventory));
   }
   /**
    * Constructs an integer array for the size of the alphabet.
@@ -100,8 +99,11 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public int get(char c) {
-   //TODO
-    return 0;
+    int count = 0;
+
+    int index = getIndex(c);
+
+    return inventory[index];
   }
 
   /**
@@ -111,7 +113,9 @@ public class LetterInventory  {
    *              IllegalArgumentException is thrown
    */
   public void set(char c, short count) {
-    //TODO
+    int index = getIndex(c);
+
+    inventory[index] = count;
   }
 
   /**
@@ -120,8 +124,9 @@ public class LetterInventory  {
    * @return true if character is in inventory, false otherwise
    */
   public boolean contains(char c) {
-    //TODO
-    return false;
+    int index = getIndex(c);
+
+    return inventory[index] > 0;
   }
 
   /**
@@ -129,8 +134,15 @@ public class LetterInventory  {
    * @return total count
    */
   public int size() {
-   //TODO
-    return 0;
+    int count = 0;
+
+    for (Short num : inventory) {
+      if (num > 0) {
+        count += num;
+      }
+    }
+
+    return count;
   }
 
   /**
@@ -138,8 +150,9 @@ public class LetterInventory  {
    * @return true, if empty, false otherwise
    */
   public boolean isEmpty() {
-    // TODO
-    return false;
+    int size = size();
+
+    return size == 0;
   }
 
   /**
