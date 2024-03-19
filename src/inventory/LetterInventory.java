@@ -1,5 +1,5 @@
 package inventory;
-
+//Hao
 /**
  * This class represents an inventory of the 26 letters in the English alphabet.
  * A LetterInventory object keeps track of how many a’s, how many b’s, etc.
@@ -13,8 +13,9 @@ package inventory;
  * The case of the letter is ignored, so ‘s’ and ‘S’ are exactly the same.
  *
  */
-public class LetterInventory  {
 
+public class LetterInventory  {
+  //if this was private int[] inventory - it
   private short[] inventory; // inventory is null here
   public static final byte ALPHABET_SIZE = 26;
 
@@ -33,6 +34,14 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+    this();//This is known as constructor chaining.
+    for (int i = 0; i < text.length(); i++)
+    {
+      char n = text.charAt(i);
+      System.out.println(n);
+      add(n);
+    }
+
   }
 
   /**
@@ -46,7 +55,15 @@ public class LetterInventory  {
    */
   public int getIndex(char c) {
   //TODO
-    return 0;
+    int num= (int)c;
+    if(c>='a'&&c<='z'){
+      return num-'a';
+    }
+    else if(c>='A'&&c<='Z'){
+      return num-'A';
+    }else {
+      throw new IllegalArgumentException("error from the character");
+    }
   }
 
   /**
@@ -54,15 +71,24 @@ public class LetterInventory  {
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void add(char c) {
-//TODO
+
+      // 获取字符在字母表中的索引
+      int index = getIndex(c);
+    // 增加相应字母的计数
+      inventory[index]++;
+
+
   }
+
+
 
   /**
    * Decreases the count for the given character in the inventory
    * @param c a-z or A-Z otherwise an IllegalArgumentException is thrown
    */
   public void subtract(char c) {
-  //TODO
+    int index = getIndex(c);
+    inventory[index]--;
   }
 
   /**
@@ -71,7 +97,13 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    // 使用 getIndex 方法来找到字符的索引
+    int index = getIndex(c);
+    // add() been used
+    //  in constructor LetterInventory(String text),
+    // 返回该索引位置的计数
+    return inventory[index];
+    //because getIndex(c) already has IllegalArgumentException
   }
 
   /**
@@ -82,6 +114,15 @@ public class LetterInventory  {
    */
   public void set(char c, short count) {
     //TODO
+    if(count>=0)
+    {
+      int index = getIndex(c);
+
+      inventory[index] = count;
+    }
+    else {
+      throw new IllegalArgumentException("count cannot be less than 0");
+    }
   }
 
   /**
@@ -91,6 +132,10 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
+    int index = get(c);
+    if(index > 0){
+      return true;
+    }
     return false;
   }
 
@@ -100,7 +145,12 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int size = 0;
+    for (int i = 0; i < inventory.length; i++)
+    {
+        size+=inventory[i];
+    }
+    return size;
   }
 
   /**
@@ -109,7 +159,13 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
-    return false;
+    for (int i = 0; i < inventory.length; i++)
+    {
+      if(inventory[i]>0){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -142,7 +198,11 @@ public class LetterInventory  {
         toReturn.append((char) ('a' + i));
       }
     }
-    return toReturn.append("]").toString();
+    //join in the closing ]
+    toReturn.append("]");
+
+    //convert the StringBuilder to a String and return it
+    return toReturn.toString();
   }
 
 }
