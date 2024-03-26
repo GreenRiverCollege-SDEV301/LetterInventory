@@ -1,12 +1,10 @@
 package inventory;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class LetterInventoryTest {
-/*
+
     static LetterInventory washington;
     static LetterInventory empty;
     static LetterInventory atoz;
@@ -17,6 +15,7 @@ class LetterInventoryTest {
         empty = new LetterInventory();
         atoz = new LetterInventory("abcdefghijklmnopqrstuvwxyz");
     }
+
 
     @Test
     void getIndex() {
@@ -125,5 +124,5 @@ class LetterInventoryTest {
         assertFalse(atoz.isEmpty());
         assertFalse(washington.isEmpty());
     }
-*/
+
 }

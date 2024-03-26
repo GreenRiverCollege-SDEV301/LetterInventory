@@ -33,6 +33,11 @@ public class LetterInventory  {
    */
   public LetterInventory(String text) {
    //TODO
+    this();
+    for(int i = 0; i<= text.length()-1; i++){
+      add(text.charAt(i));
+    }
+
   }
 
   /**
@@ -44,9 +49,13 @@ public class LetterInventory  {
    * @param c a-z or A-Z character
    * @return index of the character
    */
-  public int getIndex(char c) {
+  public int getIndex(char c)throws IllegalArgumentException{
   //TODO
-    return 0;
+    int num = (int)Character.toUpperCase(c);;
+    if(num >= 'A' && num <= 'Z') {
+      return num - 'A';
+    }
+    throw new IllegalArgumentException("Enter a valid number");
   }
 
   /**
@@ -55,6 +64,7 @@ public class LetterInventory  {
    */
   public void add(char c) {
 //TODO
+    inventory[getIndex(c)]++;
   }
 
   /**
@@ -63,6 +73,7 @@ public class LetterInventory  {
    */
   public void subtract(char c) {
   //TODO
+    inventory[getIndex(c)]--;
   }
 
   /**
@@ -71,7 +82,7 @@ public class LetterInventory  {
    */
   public int get(char c) {
    //TODO
-    return 0;
+    return inventory[getIndex(c)];
   }
 
   /**
@@ -80,8 +91,12 @@ public class LetterInventory  {
    * @param count the number of occurrences of the character c; if count < 0
    *              IllegalArgumentException is thrown
    */
-  public void set(char c, short count) {
+  public void set(char c, short count) throws IllegalArgumentException{
     //TODO
+    if(count < 0){
+      throw new IllegalArgumentException("Please enter a number larger than 0");
+    }
+    inventory[getIndex(c)] = count;
   }
 
   /**
@@ -91,6 +106,9 @@ public class LetterInventory  {
    */
   public boolean contains(char c) {
     //TODO
+    if(inventory[getIndex(c)] > 0){
+      return true;
+    }
     return false;
   }
 
@@ -100,7 +118,11 @@ public class LetterInventory  {
    */
   public int size() {
    //TODO
-    return 0;
+    int count = 0;
+    for(int i=0; i<= inventory.length-1; i++){
+      count += inventory[i];
+    }
+    return count;
   }
 
   /**
@@ -109,6 +131,9 @@ public class LetterInventory  {
    */
   public boolean isEmpty() {
     // TODO
+    if(size() == 0){
+      return true;
+    }
     return false;
   }
 
