@@ -16,6 +16,7 @@ class LetterInventoryTest {
         atoz = new LetterInventory("abcdefghijklmnopqrstuvwxyz");
     }
 
+
     @Test
     void getIndex() {
         for (int i = 0; i < LetterInventory.ALPHABET_SIZE; i++) {
